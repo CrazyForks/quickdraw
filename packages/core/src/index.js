@@ -1,0 +1,32 @@
+// Public face of the Quickdraw engine. The React and React Native SDKs build
+// boards through here — same editor, same UI, same feel — and so can any
+// plain web page: every module is dependency-free ESM.
+
+export { Editor, TOOLS } from './editor.js'
+export { Store, newId, isDiffEmpty, invertDiff, composeDiff } from './store.js'
+export { buildUI } from './ui.js'
+export {
+  themeOf, THEMES, COLOR_IDS, SIZE_IDS, DASH_IDS, FILL_IDS, GEO_IDS,
+  SIZES, FONT_SIZES, FONTS,
+} from './palette.js'
+export { pageBounds, localBounds, drawShape, hitShape } from './shapes.js'
+export { strokeOutline } from './freehand.js'
+
+import { Editor } from './editor.js'
+import { buildUI } from './ui.js'
+
+// One call: editor + chrome in a container.
+// opts: { container, store?, theme?, readonly?, hideUi?, camera?, styles?, onSave? }
+export function createQuickdraw(opts) {
+  const editor = new Editor(opts)
+  editor.container.dataset.qdTheme = editor.theme.id
+  const ui = buildUI(editor, { hidden: opts.hideUi || opts.readonly, onSave: opts.onSave })
+  return {
+    editor,
+    ui,
+    destroy() {
+      ui.destroy()
+      editor.destroy()
+    },
+  }
+}
