@@ -14,6 +14,8 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -25,12 +27,10 @@ jobs:
       - run: npm run build
       - run: npm test
       - run: npm run typecheck
-      - run: npm publish --workspace=@tryquickdraw/core --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - run: npm publish --workspace=@tryquickdraw/react --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - run: npm publish --workspace=@tryquickdraw/react-native --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # Skipped (not failed) when the NPM_TOKEN secret isn't configured yet.
+      - if: env.NODE_AUTH_TOKEN != ''
+        run: npm publish --workspace=@tryquickdraw/core --provenance --access public
+      - if: env.NODE_AUTH_TOKEN != ''
+        run: npm publish --workspace=@tryquickdraw/react --provenance --access public
+      - if: env.NODE_AUTH_TOKEN != ''
+        run: npm publish --workspace=@tryquickdraw/react-native --provenance --access public
