@@ -73,7 +73,7 @@ changes stay out of local undo history.
 // socket.onmessage: board.current.applyDiff(JSON.parse(data))
 ```
 
-See the [repository README](https://github.com/tryquickdraw/quickdraw) for the
+See the [repository README](https://github.com/nmndwivedi/quickdraw) for the
 full API.
 
 ## License

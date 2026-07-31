@@ -1,6 +1,8 @@
 # Contributing to Quickdraw
 
-Thanks for helping! A few things keep this codebase what it is:
+Thanks for helping! All contributors are expected to follow the
+[Code of Conduct](CODE_OF_CONDUCT.md). A few things keep this codebase what
+it is:
 
 ## Principles
 

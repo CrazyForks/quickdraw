@@ -1,10 +1,15 @@
 # Quickdraw
 
+[![CI](https://github.com/nmndwivedi/quickdraw/actions/workflows/ci.yml/badge.svg)](https://github.com/nmndwivedi/quickdraw/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/@tryquickdraw/core?label=%40tryquickdraw%2Fcore)](https://www.npmjs.com/package/@tryquickdraw/core)
+[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 **The MIT-licensed infinite-canvas whiteboard SDK.** Drop a complete,
 polished drawing surface into your React, React Native, or plain-JS app —
-free for any use, including commercial products, forever.
+free for any use, including commercial products, forever. An open-source
+alternative to tldraw with no watermark and no license fee.
 
-[tryquickdraw.com](https://tryquickdraw.com)
+**[tryquickdraw.com](https://tryquickdraw.com)** · **[Try the app](https://app.tryquickdraw.com)** · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
 
 Quickdraw exists because embedding a whiteboard shouldn't cost thousands of
 dollars a year. Popular canvas SDKs require a paid business license to remove
@@ -192,6 +197,15 @@ npm run dev       # react demo at localhost:5173
 npm run build     # bundle the RN WebView page
 npm run typecheck # validate the published type declarations
 ```
+
+## Contributing
+
+Quickdraw is open to contributions from everyone — bug reports, features,
+docs, examples. Start with [CONTRIBUTING.md](CONTRIBUTING.md), browse
+[`good first issue`](https://github.com/nmndwivedi/quickdraw/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22),
+or open a [discussion](https://github.com/nmndwivedi/quickdraw/discussions)
+if you're not sure where a change belongs. We follow the
+[Contributor Covenant](CODE_OF_CONDUCT.md).
 
 ## License
 
