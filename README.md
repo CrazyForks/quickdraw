@@ -9,7 +9,7 @@ polished drawing surface into your React, React Native, or plain-JS app —
 free for any use, including commercial products, forever. An open-source
 alternative to tldraw with no watermark and no license fee.
 
-**[tryquickdraw.com](https://tryquickdraw.com)** · **[Try the app](https://app.tryquickdraw.com)** · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
+**[Website](https://tryquickdraw.vercel.app)** · **[Try the app](https://tryquickdraw-app.vercel.app)** · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
 
 Quickdraw exists because embedding a whiteboard shouldn't cost thousands of
 dollars a year. Popular canvas SDKs require a paid business license to remove
