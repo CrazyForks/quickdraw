@@ -63,6 +63,9 @@ If your app owns its own theme chrome, drop the in-board switches:
 createQuickdraw({ container, themeToggle: false, gridControl: false })
 ```
 
+A small "Quickdraw" mark sits in the board's corner. Keeping it helps people
+find the project; `watermark: false` removes it — no purchase required.
+
 The grid spacing adapts to the zoom (doubling and halving around a 40px page
 step, majors every fifth) and travels into PNG exports that keep the paper.
 

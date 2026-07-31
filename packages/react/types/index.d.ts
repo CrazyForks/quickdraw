@@ -23,6 +23,8 @@ export interface QuickdrawProps {
   themeToggle?: boolean
   /** Show the grid switch in the board menu (default true). */
   gridControl?: boolean
+  /** Show the corner "Quickdraw" mark (default true). Mount-time only. */
+  watermark?: boolean
   /** External Store to render (share one across components/peers). */
   store?: Store
   /** Serialized document loaded on mount (ignored when `store` is given). */

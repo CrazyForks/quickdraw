@@ -1,51 +1,51 @@
 ---
 layout: ../../layouts/Article.astro
 title: "Open-source tldraw alternatives in 2026"
-description: "tldraw's SDK needs a paid license to remove its watermark. Here are the genuinely open-source whiteboard libraries — Excalidraw, Quickdraw, and the DIY route — compared honestly."
+description: "tldraw's SDK requires a paid business license for some production use. Here are the genuinely MIT-licensed whiteboard libraries — Excalidraw, Quickdraw, and the DIY route — compared."
 date: 2026-08-01
 ---
 
 tldraw is probably the best-known infinite-canvas SDK for React, and it's
-genuinely good software. It's also not open source in the way many developers
-assume: since the 3.x release, production use requires either a
-["Made with tldraw" watermark on the canvas or a paid business license](https://tldraw.dev/community/license),
-with the startup tier publicly listed in the thousands of dollars per year.
+good software. It's also not open source in the way many developers assume:
+since the 3.x release, production use comes with
+[license conditions](https://tldraw.dev/community/license), and removing the
+built-in attribution requires a paid business license — the startup tier is
+publicly listed in the thousands of dollars per year.
 
-That's a legitimate business model. But if you came here searching for an
-*alternative*, you probably want one of two things: a genuinely free license,
-or a library that fits a stack tldraw doesn't cover (plain JavaScript, React
-Native). Here's the honest landscape.
+That's a legitimate business model. But if you searched for an *alternative*,
+you probably want one of two things: a genuinely free license, or a library
+that fits a stack tldraw doesn't cover (plain JavaScript, React Native).
+Here's the landscape.
 
-## What "open source" actually means here
+## What "open source" means here
 
-Before comparing, three license situations get conflated:
+Three license situations get conflated:
 
-- **MIT / Apache** — use it commercially, modify it, no watermark, no fees,
-  irrevocably. This is what most people mean by open source.
-- **Source-available with a watermark clause** — you can read and modify the
-  code, but shipping to production carries conditions. tldraw 3.x is here.
-- **Copyleft (GPL/AGPL)** — free, but with obligations that many commercial
-  teams can't accept for an embedded SDK.
+- **MIT / Apache** — use it commercially, modify it, no fees, irrevocably.
+  This is what most people mean by open source.
+- **Source-available with conditions** — you can read and modify the code,
+  but shipping to production carries terms. tldraw 3.x is here.
+- **Copyleft (GPL/AGPL)** — free, but with obligations many commercial teams
+  can't accept for an embedded SDK.
 
-Everything below is MIT unless noted.
+Everything below is MIT.
 
 ## Excalidraw
 
 [Excalidraw](https://github.com/excalidraw/excalidraw) is the heavyweight
-MIT-licensed option: a hugely popular hand-drawn-style whiteboard with an
-embeddable React component (`@excalidraw/excalidraw`). It's mature, actively
-maintained, and battle-tested at enormous scale.
+MIT option: a hugely popular hand-drawn-style whiteboard with an embeddable
+React component (`@excalidraw/excalidraw`). It's mature, actively
+maintained, and battle-tested at scale.
 
 Where it fits less well: it's React-only, the embed brings Excalidraw's own
-look and UX (which is charming but distinctive), and the component is a fairly
-large dependency. Collaboration exists via the separate `excalidraw-room`
-server. If you want "the Excalidraw experience inside my app," it's an
-excellent choice.
+look and UX, and the component is a fairly large dependency. Collaboration
+runs through the separate `excalidraw-room` server. If you want "the
+Excalidraw experience inside my app," it's an excellent choice.
 
 ## Quickdraw
 
 [Quickdraw](https://tryquickdraw.com) — this project — is an MIT-licensed
-whiteboard SDK built to be *embedded*: the core engine is plain ESM with zero
+whiteboard SDK built to be embedded. The core engine is plain ESM with zero
 runtime dependencies (~46 kB unpacked), and the same engine ships as three
 packages:
 
@@ -55,10 +55,11 @@ packages:
   Apple Pencil pressure, and palm rejection
 
 You get pressure-sensitive ink, shapes with a hand-drawn wobble, arrows,
-sticky notes, images, a laser pointer, per-gesture undo, light/dark themes,
-grids, and PNG export out of the box — plus a diff-emitting store designed for
-persistence and real-time sync (every change is a JSON-safe diff you can ship
-over any transport).
+sticky notes, images, a laser pointer, per-gesture undo, light and dark
+themes, grids, and PNG export — plus a diff-emitting store designed for
+persistence and real-time sync. A small "Quickdraw" mark sits in the board's
+corner by default; unlike tldraw's attribution, turning it off is a boolean
+(`watermark: false`), not a paid tier.
 
 Where it fits less well: it's young. Excalidraw and tldraw have years of
 production hardening and much bigger communities. If you need rich text,
@@ -66,18 +67,18 @@ frames, or a first-party sync server today, the older projects are ahead.
 
 ## The DIY route: perfect-freehand + your own canvas
 
-If you only need *drawing* — not selection, shapes, undo, export, and the
-other 80% — [perfect-freehand](https://github.com/steveruizok/perfect-freehand)
-(MIT, by tldraw's author) turns pointer input into beautiful pressure-sensitive
-stroke outlines, and you render them yourself. Many teams start here and then
-discover the whiteboard iceberg: hit-testing, camera math, undo semantics,
-touch gestures, palm rejection. Budget accordingly.
+If you only need *drawing* — not selection, shapes, undo, and export —
+[perfect-freehand](https://github.com/steveruizok/perfect-freehand) (MIT, by
+tldraw's author) turns pointer input into pressure-sensitive stroke
+outlines, and you render them yourself. Many teams start here and then meet
+the rest of the iceberg: hit-testing, camera math, undo semantics, touch
+gestures, palm rejection. Budget for that before you commit.
 
 ## Quick comparison
 
 | | Quickdraw | Excalidraw | tldraw SDK |
 |---|---|---|---|
-| License | MIT | MIT | Custom (watermark unless paid) |
+| License | MIT | MIT | Custom |
 | React | Yes | Yes | Yes |
 | No-framework JS | **Yes** | No | No |
 | React Native | **Yes** | No | No |
@@ -90,10 +91,10 @@ touch gestures, palm rejection. Budget accordingly.
 - **You want maximum maturity and MIT:** Excalidraw.
 - **You want a lightweight embed, plain-JS support, or React Native:**
   Quickdraw.
-- **You only need ink and love building canvases:** perfect-freehand.
+- **You only need ink and enjoy building canvases:** perfect-freehand.
 - **The license cost is fine for your business:** tldraw remains excellent.
 
-Quickdraw is [open to contributions](https://github.com/nmndwivedi/quickdraw)
-— if the missing feature that sent you back to a paid SDK is on our
-[roadmap](https://github.com/nmndwivedi/quickdraw/issues/1), tell us or build
-it with us.
+Quickdraw is [open to contributions](https://github.com/nmndwivedi/quickdraw).
+If the missing feature that sent you back to a paid SDK is on the
+[roadmap](https://github.com/nmndwivedi/quickdraw/issues/1), tell us — or
+build it with us.

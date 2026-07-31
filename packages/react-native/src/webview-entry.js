@@ -43,6 +43,7 @@ const handlers = {
       hideUi,
       themeToggle: m.themeToggle !== false,
       gridControl: m.gridControl !== false,
+      watermark: m.watermark !== false,
       styles: m.styles || undefined,
       onSave: async (blob, background) => {
         post({ type: 'save', dataUrl: await blobToDataUrl(blob), background })

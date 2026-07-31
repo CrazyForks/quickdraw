@@ -18,6 +18,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev", "--workspace=quickdraw-app", "--", "--port", "5299", "--strictPort"],
       "port": 5299
+    },
+    {
+      "name": "docs",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--workspace=quickdraw-docs"],
+      "port": 4499
     }
   ]
 }

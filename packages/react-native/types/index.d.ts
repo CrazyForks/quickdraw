@@ -42,6 +42,8 @@ export interface QuickdrawProps {
   themeToggle?: boolean
   /** Show the grid switch in the board menu (default true). */
   gridControl?: boolean
+  /** Show the corner "Quickdraw" mark (default true). */
+  watermark?: boolean
   snapshot?: Snapshot
   styles?: Partial<Styles>
   onReady?: () => void

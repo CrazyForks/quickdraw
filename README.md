@@ -7,14 +7,14 @@
 **The MIT-licensed infinite-canvas whiteboard SDK.** Drop a complete,
 polished drawing surface into your React, React Native, or plain-JS app —
 free for any use, including commercial products, forever. An open-source
-alternative to tldraw with no watermark and no license fee.
+alternative to tldraw with no license fee.
 
 **[Website](https://tryquickdraw.vercel.app)** · **[Try the app](https://tryquickdraw-app.vercel.app)** · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
 
 Quickdraw exists because embedding a whiteboard shouldn't cost thousands of
-dollars a year. Popular canvas SDKs require a paid business license to remove
-their watermark from production apps. Quickdraw is MIT: no watermark, no
-license key, no strings.
+dollars a year. Quickdraw is MIT: no license key, no fees, no strings. A small
+"Quickdraw" mark sits in the board's corner; keeping it helps people find the
+project, and `watermark: false` turns it off — no purchase required.
 
 ## What you get
 

@@ -22,6 +22,7 @@ export { createBridge, encodeDispatch } from './bridge.js'
  *   hideUi       hide the stock toolbar
  *   themeToggle  show the theme switch in the board menu (default true)
  *   gridControl  show the grid switch in the board menu (default true)
+ *   watermark    show the corner "Quickdraw" mark (default true)
  *   snapshot     serialized document loaded on mount
  *   styles       initial pen styles { color, size, dash, fill, font }
  *   onReady      () => void — board mounted inside the WebView
@@ -48,6 +49,7 @@ export const Quickdraw = forwardRef(function Quickdraw(props, ref) {
     hideUi = false,
     themeToggle = true,
     gridControl = true,
+    watermark = true,
     snapshot,
     styles,
     onReady,
@@ -84,7 +86,7 @@ export const Quickdraw = forwardRef(function Quickdraw(props, ref) {
   // initial props for the init message (read once, on 'ready')
   const initRef = useRef(null)
   if (!initRef.current) {
-    initRef.current = { theme, grid, readonly, hideUi, themeToggle, gridControl, snapshot, styles }
+    initRef.current = { theme, grid, readonly, hideUi, themeToggle, gridControl, watermark, snapshot, styles }
   }
 
   const onMessage = (e) => {

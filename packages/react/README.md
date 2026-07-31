@@ -47,7 +47,9 @@ const [grid, setGrid] = useState('lines')
 ```
 
 If your app owns its own theme control, drop the in-board ones with
-`themeToggle={false}` / `gridControl={false}`.
+`themeToggle={false}` / `gridControl={false}`. The corner "Quickdraw" mark is
+on by default (keeping it helps people find the project); `watermark={false}`
+removes it.
 
 ## Persistence
 

@@ -58,7 +58,9 @@ board.current.setTool('draw')
 `theme` ('light' | 'dark') and `grid` ('none' | 'lines' | 'dots') are live
 props, and the ⋮ board menu carries switches for both. `onThemeChange` /
 `onGridChange` report in-board changes back so your state can follow;
-`themeToggle={false}` / `gridControl={false}` remove the switches.
+`themeToggle={false}` / `gridControl={false}` remove the switches, and
+`watermark={false}` removes the corner "Quickdraw" mark (on by default —
+keeping it helps people find the project).
 
 ## Real-time sync
 

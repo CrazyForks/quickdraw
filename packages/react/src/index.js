@@ -4,7 +4,7 @@
 import {
   createElement, forwardRef, useEffect, useImperativeHandle, useRef,
 } from 'react'
-import { Editor, Store, buildUI } from '@tryquickdraw/core'
+import { Editor, Store, buildUI, buildWatermark } from '@tryquickdraw/core'
 
 export * from '@tryquickdraw/core'
 
@@ -18,6 +18,7 @@ export * from '@tryquickdraw/core'
  *   hideUi       hide the stock toolbar (bring your own chrome)
  *   themeToggle  show the theme switch in the board menu (default true)
  *   gridControl  show the grid switch in the board menu (default true)
+ *   watermark    show the corner "Quickdraw" mark (default true)
  *   store        external Store to render (share one across components/peers)
  *   snapshot     serialized document loaded on mount (ignored when `store` given)
  *   camera       initial camera { x, y, z }
@@ -41,6 +42,7 @@ export const Quickdraw = forwardRef(function Quickdraw(props, ref) {
     hideUi = false,
     themeToggle = true,
     gridControl = true,
+    watermark = true,
     store,
     snapshot,
     camera,
@@ -95,6 +97,7 @@ export const Quickdraw = forwardRef(function Quickdraw(props, ref) {
     })
     editorRef.current = editor
     uiRef.current = ui
+    const mark = watermark ? buildWatermark(editor) : null
 
     if (!store && snapshot) {
       editor.store.loadSnapshot(snapshot, 'remote')
@@ -135,6 +138,7 @@ export const Quickdraw = forwardRef(function Quickdraw(props, ref) {
       unsubSel()
       unsubTheme()
       unsubGrid()
+      mark?.remove()
       ui.destroy()
       editor.destroy()
       editorRef.current = null

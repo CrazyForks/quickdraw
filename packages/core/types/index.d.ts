@@ -306,6 +306,12 @@ export interface BuildUIOptions {
 /** Build the floating toolbar / style popovers / board menu for an editor. */
 export function buildUI(editor: Editor, opts?: BuildUIOptions): BoardUI
 
+/**
+ * Append the corner "Quickdraw" mark to a board's container and return it.
+ * `createQuickdraw` and the framework bindings call this for you.
+ */
+export function buildWatermark(editor: Editor): HTMLAnchorElement
+
 export interface QuickdrawInstance {
   editor: Editor
   ui: BoardUI
@@ -317,6 +323,11 @@ export interface CreateQuickdrawOptions extends EditorOptions {
   onSave?: (blob: Blob, background: boolean) => void
   themeToggle?: boolean
   gridControl?: boolean
+  /**
+   * Show the small "Quickdraw" mark in the board's corner (default true).
+   * Keeping it is a free way to support the project.
+   */
+  watermark?: boolean
 }
 
 /** One call: editor + toolbar chrome in a container. */

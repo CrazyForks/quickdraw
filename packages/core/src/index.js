@@ -15,9 +15,29 @@ export { strokeOutline } from './freehand.js'
 import { Editor } from './editor.js'
 import { buildUI } from './ui.js'
 
+// The "made with Quickdraw" mark in the board's corner. It stays up when the
+// toolbar is hidden — hosts building their own chrome still credit the
+// engine — and hosts that need it gone pass watermark: false.
+export function buildWatermark(editor) {
+  const a = document.createElement('a')
+  a.className = 'qd-watermark'
+  a.href = 'https://tryquickdraw.com'
+  a.target = '_blank'
+  a.rel = 'noopener'
+  a.setAttribute('aria-label', 'Made with Quickdraw')
+  a.innerHTML =
+    `<svg viewBox="0 0 32 32" fill="none" aria-hidden="true">` +
+    `<path d="M6 22 C6 12, 12 6, 20 7 C27 8, 28 16, 22 19 C17 21.5, 12 20, 13 15" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" fill="none"/>` +
+    `<circle cx="25.5" cy="25.5" r="3" fill="currentColor"/>` +
+    `</svg><span>Quickdraw</span>`
+  a.addEventListener('pointerdown', (e) => e.stopPropagation())
+  editor.container.appendChild(a)
+  return a
+}
+
 // One call: editor + chrome in a container.
 // opts: { container, store?, theme?, grid?, readonly?, hideUi?, camera?, styles?,
-//         onSave?, themeToggle?, gridControl? }
+//         onSave?, themeToggle?, gridControl?, watermark? }
 export function createQuickdraw(opts) {
   const editor = new Editor(opts)
   editor.container.dataset.qdTheme = editor.theme.id
@@ -27,10 +47,12 @@ export function createQuickdraw(opts) {
     themeToggle: opts.themeToggle,
     gridControl: opts.gridControl,
   })
+  const watermark = opts.watermark === false ? null : buildWatermark(editor)
   return {
     editor,
     ui,
     destroy() {
+      watermark?.remove()
       ui.destroy()
       editor.destroy()
     },

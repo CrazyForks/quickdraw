@@ -495,6 +495,30 @@ describe('createQuickdraw UI', () => {
     c2.remove()
   })
 
+  it('shows the watermark by default, linked to the site', () => {
+    const c2 = document.createElement('div')
+    document.body.appendChild(c2)
+    const board = createQuickdraw({ container: c2 })
+    const mark = c2.querySelector('.qd-watermark')
+    expect(mark).toBeTruthy()
+    expect(mark.href).toBe('https://tryquickdraw.com/')
+    board.destroy()
+    expect(c2.querySelector('.qd-watermark')).toBeNull()
+    c2.remove()
+  })
+
+  it('watermark: false removes it; hideUi keeps it', () => {
+    const c2 = document.createElement('div')
+    document.body.appendChild(c2)
+    const bare = createQuickdraw({ container: c2, watermark: false })
+    expect(c2.querySelector('.qd-watermark')).toBeNull()
+    bare.destroy()
+    const headless = createQuickdraw({ container: c2, hideUi: true })
+    expect(c2.querySelector('.qd-watermark')).toBeTruthy()
+    headless.destroy()
+    c2.remove()
+  })
+
   it('undo/redo buttons track history through full gestures', () => {
     const c2 = document.createElement('div')
     document.body.appendChild(c2)

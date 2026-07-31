@@ -9,9 +9,9 @@ You need a drawing surface in your React app — for annotations, a
 brainstorming feature, a teaching tool, a support sketch. Building one from
 scratch is a multi-month project (camera math, hit-testing, undo semantics,
 touch gestures). Embedding one takes five minutes. This tutorial uses
-[Quickdraw](https://tryquickdraw.com), which is MIT-licensed — free for
-commercial use, no watermark — but the persistence and sync patterns apply to
-any whiteboard SDK.
+[Quickdraw](https://tryquickdraw.com), which is MIT-licensed and free for
+commercial use — but the persistence and sync patterns apply to any
+whiteboard SDK.
 
 ## 1. Install
 

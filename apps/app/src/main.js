@@ -40,11 +40,11 @@ store.listen(() => {
   }, 400)
 })
 
-// Remember the theme across visits; the badge follows the board's colors.
-const badge = document.getElementById('badge')
+// Remember the theme across visits; the logo follows the board's colors.
+const logo = document.getElementById('logo')
 const syncTheme = () => {
   localStorage.setItem(THEME_KEY, editor.theme.id)
-  badge.classList.toggle('dark', editor.theme.id === 'dark')
+  logo.classList.toggle('dark', editor.theme.id === 'dark')
   document.querySelector('meta[name="theme-color"]')
     ?.setAttribute('content', editor.theme.id === 'dark' ? '#1e1e1c' : '#faf8f4')
 }

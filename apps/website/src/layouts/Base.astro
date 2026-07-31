@@ -3,7 +3,7 @@ import { SITE_URL, APP_URL, GITHUB_URL, SITE_NAME, SITE_TAGLINE } from '../const
 
 const {
   title = `${SITE_NAME} — ${SITE_TAGLINE}`,
-  description = 'Quickdraw is a free, MIT-licensed whiteboard SDK for React, React Native, and plain JavaScript. An open-source tldraw alternative: no watermark, no license key, zero dependencies.',
+  description = 'Quickdraw is a free, MIT-licensed whiteboard SDK for React, React Native, and plain JavaScript. An open-source tldraw alternative: no license fee, no license key, zero dependencies.',
   ogType = 'website',
   jsonLd = null,
 } = Astro.props
@@ -77,7 +77,15 @@ const canonical = new URL(Astro.url.pathname, SITE_URL).href
         <strong>Learn</strong>
         <a href="/docs/">Documentation</a>
         <a href="/blog/">Blog</a>
+        <a href="/react-whiteboard/">React whiteboard</a>
+        <a href="/react-native-whiteboard/">React Native whiteboard</a>
         <a href={APP_URL} rel="noopener">Try it online</a>
+      </div>
+      <div>
+        <strong>Compare</strong>
+        <a href="/tldraw-alternative/">tldraw alternative</a>
+        <a href="/excalidraw-alternative/">Excalidraw alternative</a>
+        <a href="/tldraw-vs-excalidraw/">tldraw vs Excalidraw</a>
       </div>
     </div>
     <p class="fine">MIT licensed. Built in the open — contributions welcome.</p>

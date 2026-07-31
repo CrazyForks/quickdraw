@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro'
+import CompareTable from '../components/CompareTable.astro'
 import { APP_URL, GITHUB_URL, SITE_URL } from '../consts.js'
 
 const jsonLd = {
@@ -12,7 +13,7 @@ const jsonLd = {
       operatingSystem: 'Web, iOS, Android',
       url: SITE_URL,
       description:
-        'MIT-licensed infinite-canvas whiteboard SDK for React, React Native, and plain JavaScript. An open-source tldraw alternative with no watermark and no license fee.',
+        'MIT-licensed infinite-canvas whiteboard SDK for React, React Native, and plain JavaScript. An open-source tldraw alternative with no license fee.',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
       license: 'https://opensource.org/license/mit',
       sameAs: [GITHUB_URL],
@@ -25,7 +26,7 @@ const jsonLd = {
           name: 'Is Quickdraw really free for commercial use?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Yes. Quickdraw is MIT-licensed. You can embed it in commercial products, modify it, and redistribute it with no watermark, no license key, and no fees — forever.',
+            text: 'Yes. Quickdraw is MIT-licensed. You can embed it in commercial products, modify it, and redistribute it with no license key and no fees — forever.',
           },
         },
         {
@@ -33,7 +34,7 @@ const jsonLd = {
           name: 'How is Quickdraw different from tldraw?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: "tldraw's SDK requires a 'Made with tldraw' watermark unless you purchase a business license. Quickdraw is MIT-licensed with no watermark and no fees, has zero runtime dependencies, and ships React, React Native, and framework-free packages.",
+            text: "tldraw's SDK uses a custom license with a paid business tier. Quickdraw is MIT-licensed with no fees, has zero runtime dependencies, and ships React, React Native, and framework-free packages.",
           },
         },
         {
@@ -52,6 +53,14 @@ const jsonLd = {
             text: 'Yes. @tryquickdraw/react-native wraps the engine in a WebView with a typed bridge — Apple Pencil pressure, palm rejection, offline support, snapshot and PNG export included.',
           },
         },
+        {
+          '@type': 'Question',
+          name: 'Can I remove the Quickdraw mark in the corner?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes — pass watermark: false. It is on by default because it helps people find the project, but removing it is free and does not require a license.',
+          },
+        },
       ],
     },
   ],
@@ -61,92 +70,93 @@ const jsonLd = {
   <main>
     <section class="hero">
       <div class="copy">
-        <p class="eyebrow">Open source · MIT · Zero dependencies</p>
-        <h1>The whiteboard SDK<br /><span class="scribble">without the license fee</span></h1>
+        <p class="eyebrow">MIT licensed · Zero dependencies</p>
+        <h1>The <span class="scribble">open&#8209;source</span> whiteboard&nbsp;SDK</h1>
         <p class="lede">
-          Drop a complete, polished infinite-canvas whiteboard into your React,
-          React&nbsp;Native, or plain-JS app. Pressure ink, shapes, sticky notes,
-          undo, themes, sync-ready diffs — free for any use, including
-          commercial products, forever.
+          A complete infinite-canvas whiteboard for React, React&nbsp;Native,
+          and the plain web. Pressure ink, shapes, sticky notes, undo,
+          real&#8209;time&#8209;ready sync — free for commercial use, forever.
         </p>
         <div class="actions">
           <a class="btn primary" href={APP_URL} rel="noopener">Try the app</a>
-          <a class="btn" href={GITHUB_URL} rel="noopener">Star on GitHub</a>
+          <a class="btn" href="/docs/">Get started</a>
         </div>
-        <pre class="install"><code>npm install @tryquickdraw/react</code></pre>
+        <div class="install" title="Install with npm">
+          <span class="prompt">$</span> npm install @tryquickdraw/react
+        </div>
       </div>
       <div class="board-frame">
         <div id="hero-board" aria-label="Live Quickdraw whiteboard — draw here"></div>
-        <p class="board-hint">← This is the real SDK. Draw on it.</p>
+        <p class="board-hint">Live board — go ahead, draw on it</p>
       </div>
     </section>
 
     <section class="features" id="features">
       <h2>A complete whiteboard, not a toolkit you assemble</h2>
       <div class="grid">
-        <div class="card"><h3>Pressure ink</h3><p>Freehand pen width breathes with stylus pressure — or velocity for mouse users. Strokes taper like a real pen.</p></div>
-        <div class="card"><h3>Shapes with soul</h3><p>Rectangles, ellipses, triangles, diamonds, hexagons, stars — with a seeded hand-drawn wobble, four fill styles, and editable labels.</p></div>
-        <div class="card"><h3>Sync-ready by design</h3><p>Every change emits a JSON-safe diff. Ship it over any transport; remote changes never pollute local undo.</p></div>
+        <div class="card"><h3>Pressure ink</h3><p>The pen's width follows stylus pressure — or velocity for mouse users — and strokes taper like a real pen.</p></div>
+        <div class="card"><h3>Hand-drawn shapes</h3><p>Rectangles, ellipses, triangles, diamonds, hexagons, stars — with a subtle sketched wobble, four fill styles, and editable labels.</p></div>
+        <div class="card"><h3>Real-time sync</h3><p>Every change emits a JSON-safe diff. Ship it over any transport; remote changes never pollute local undo.</p></div>
         <div class="card"><h3>Palm rejection</h3><p>Once a stylus is seen, fingers steer the camera and the pen draws. Apple Pencil feels native.</p></div>
-        <div class="card"><h3>Infinite canvas</h3><p>Pan, wheel zoom, two-finger pinch, zoom-to-fit. Ruled or dotted grids that adapt to zoom and fade in gently.</p></div>
-        <div class="card"><h3>Everything else</h3><p>Arrows with draggable bend, sticky notes, images, laser pointer, PNG export, per-gesture undo, light &amp; dark themes, full keyboard map.</p></div>
+        <div class="card"><h3>Infinite canvas</h3><p>Pan, wheel zoom, two-finger pinch, zoom-to-fit. Ruled or dotted grids that adapt to the zoom.</p></div>
+        <div class="card"><h3>And the rest</h3><p>Arrows with draggable bend, sticky notes, images, laser pointer, PNG export, per-gesture undo, light &amp; dark themes, full keyboard map.</p></div>
       </div>
     </section>
 
     <section class="quickstart" id="quickstart">
-      <h2>Three lines to a whiteboard</h2>
-      <div class="tabs">
-        <div class="tab">
-          <h3>React</h3>
-          <pre><code>{`import { Quickdraw } from '@tryquickdraw/react'
+      <h2>Install, render, done</h2>
+      <div class="qs-panel">
+        <div class="qs-tabs" role="tablist" aria-label="Choose your platform">
+          <button class="qs-tab on" role="tab" aria-selected="true" data-qs="react">React</button>
+          <button class="qs-tab" role="tab" aria-selected="false" data-qs="js">Plain JS</button>
+          <button class="qs-tab" role="tab" aria-selected="false" data-qs="rn">React Native</button>
+        </div>
+        <div class="qs-body">
+          <div class="qs-pane on" data-qs-pane="react">
+            <pre><code>{`npm install @tryquickdraw/react`}</code></pre>
+            <pre><code>{`import { Quickdraw } from '@tryquickdraw/react'
 import '@tryquickdraw/core/quickdraw.css'
 
-<Quickdraw theme="light" grid="lines"
-  onChange={(diff) => save(diff)} />`}</code></pre>
-        </div>
-        <div class="tab">
-          <h3>Plain JS</h3>
-          <pre><code>{`import { createQuickdraw } from '@tryquickdraw/core'
+export default function Board() {
+  return <Quickdraw theme="light" grid="dots" />
+}`}</code></pre>
+          </div>
+          <div class="qs-pane" data-qs-pane="js">
+            <pre><code>{`npm install @tryquickdraw/core`}</code></pre>
+            <pre><code>{`import { createQuickdraw } from '@tryquickdraw/core'
 import '@tryquickdraw/core/quickdraw.css'
 
 createQuickdraw({
-  container: document.getElementById('board') })`}</code></pre>
-        </div>
-        <div class="tab">
-          <h3>React Native</h3>
-          <pre><code>{`import { Quickdraw } from '@tryquickdraw/react-native'
+  container: document.getElementById('board'),
+})`}</code></pre>
+          </div>
+          <div class="qs-pane" data-qs-pane="rn">
+            <pre><code>{`npm install @tryquickdraw/react-native react-native-webview`}</code></pre>
+            <pre><code>{`import { Quickdraw } from '@tryquickdraw/react-native'
 
-<Quickdraw ref={board} theme="dark"
-  onChange={(diff) => sync(diff)} />
-// await board.current.exportPng({ scale: 2 })`}</code></pre>
+<Quickdraw
+  theme="dark"
+  onChange={(diff) => sync(diff)}
+  style={{ flex: 1 }}
+/>`}</code></pre>
+          </div>
         </div>
       </div>
+      <p class="qs-note">
+        That's the whole integration. Persistence is one call —
+        <code>store.getSnapshot()</code> returns plain JSON.
+        <a href="/docs/">Read the docs →</a>
+      </p>
     </section>
 
     <section class="compare" id="compare">
-      <h2>An honest comparison</h2>
+      <h2>How it compares</h2>
       <p class="section-lede">
-        tldraw is an excellent SDK — that's why its license costs what it does.
-        Quickdraw exists for everyone who needs a first-class whiteboard without
-        the invoice.
+        tldraw and Excalidraw are both excellent. Quickdraw is for teams that
+        want an MIT license, a framework-free core, and React Native support
+        in the same package.
       </p>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th></th><th>Quickdraw</th><th>tldraw SDK</th><th>Excalidraw</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>License</td><td><strong>MIT</strong></td><td>Custom (watermark unless paid)</td><td>MIT</td></tr>
-            <tr><td>Watermark-free in production</td><td><strong>Free</strong></td><td>Business license required</td><td>Free</td></tr>
-            <tr><td>React support</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
-            <tr><td>Framework-free (no React)</td><td><strong>Yes</strong></td><td>No (React only)</td><td>No (React only)</td></tr>
-            <tr><td>React Native package</td><td><strong>Yes</strong></td><td>No</td><td>No</td></tr>
-            <tr><td>Runtime dependencies (core)</td><td><strong>Zero</strong></td><td>Many</td><td>Several</td></tr>
-            <tr><td>Pressure ink + palm rejection</td><td>Yes</td><td>Yes</td><td>Partial</td></tr>
-            <tr><td>Diff-based sync primitive</td><td>Yes</td><td>Yes (tldraw sync)</td><td>Via excalidraw-room</td></tr>
-          </tbody>
-        </table>
-      </div>
+      <CompareTable />
       <p class="fine-print">
         Comparison reflects public docs as of August 2026 — see
         <a href="https://tldraw.dev/community/license" rel="noopener nofollow">tldraw's license</a> and
@@ -159,7 +169,11 @@ createQuickdraw({
       <h2>Questions people ask</h2>
       <details open>
         <summary>Is Quickdraw really free for commercial use?</summary>
-        <p>Yes. MIT means you can embed it in commercial products, modify it, and redistribute it — no watermark, no license key, no fees, forever. The license can't be revoked for versions you already have.</p>
+        <p>Yes. MIT means you can embed it in commercial products, modify it, and redistribute it — no license key, no fees, forever. The license can't be revoked for versions you already have.</p>
+      </details>
+      <details>
+        <summary>Can I remove the Quickdraw mark in the corner?</summary>
+        <p>Yes — pass <code>watermark: false</code>. It's on by default because it helps people find the project, but removing it is free. No license required.</p>
       </details>
       <details>
         <summary>How do I persist a board?</summary>
@@ -180,11 +194,11 @@ createQuickdraw({
     </section>
 
     <section class="cta-final">
-      <h2>Ship a whiteboard this afternoon</h2>
+      <h2>Add a whiteboard to your app today</h2>
       <div class="actions">
-        <a class="btn primary" href={APP_URL} rel="noopener">Try the app</a>
-        <a class="btn" href="/docs/">Read the docs</a>
-        <a class="btn" href={GITHUB_URL} rel="noopener">GitHub →</a>
+        <a class="btn primary" href="/docs/">Get started</a>
+        <a class="btn" href={APP_URL} rel="noopener">Try the app</a>
+        <a class="btn" href={GITHUB_URL} rel="noopener">GitHub</a>
       </div>
     </section>
   </main>
@@ -197,7 +211,6 @@ createQuickdraw({
   const container = document.getElementById('hero-board')
   if (container) {
     const board = createQuickdraw({ container, theme: 'light', grid: 'dots' })
-    // A small welcome doodle so the canvas doesn't open empty.
     const { store } = board.editor
     const saved = sessionStorage.getItem('qd-hero')
     if (saved) {
@@ -211,30 +224,46 @@ createQuickdraw({
       }, 400)
     })
   }
+
+  // quickstart tabs
+  const tabs = document.querySelectorAll('.qs-tab')
+  const panes = document.querySelectorAll('.qs-pane')
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      tabs.forEach((t2) => {
+        const on = t2 === tab
+        t2.classList.toggle('on', on)
+        t2.setAttribute('aria-selected', String(on))
+      })
+      panes.forEach((p) => p.classList.toggle('on', p.dataset.qsPane === tab.dataset.qs))
+    })
+  })
 </script>
 
 <style>
   main { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
-  section { margin-top: 90px; }
+  section { margin-top: 96px; }
   h2 { font-size: clamp(26px, 4vw, 34px); line-height: 1.2; margin: 0 0 24px; letter-spacing: -0.01em; }
 
   .hero {
-    margin-top: 60px;
+    margin-top: 56px;
     display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-    gap: 44px; align-items: center;
+    gap: 52px; align-items: center;
   }
   .eyebrow {
-    display: inline-block; font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
-    color: var(--accent-ink); background: color-mix(in srgb, var(--accent) 10%, transparent);
-    padding: 4px 12px; border-radius: 999px; margin: 0 0 14px;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-soft); margin: 0 0 16px;
   }
-  h1 { font-size: clamp(34px, 5.4vw, 52px); line-height: 1.08; margin: 0 0 18px; letter-spacing: -0.02em; }
+  h1 {
+    font-size: clamp(34px, 4.6vw, 50px); line-height: 1.12; margin: 0 0 18px;
+    letter-spacing: -0.02em; text-wrap: balance;
+  }
   .scribble {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='10' viewBox='0 0 220 10'%3E%3Cpath d='M3 7 Q40 2 80 6 T160 5 T217 6' fill='none' stroke='%232f6fed' stroke-width='3.4' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat; background-position: 0 100%; background-size: 100% 9px;
-    padding-bottom: 10px;
+    background-repeat: no-repeat; background-position: 0 100%; background-size: 100% 8px;
+    padding-bottom: 8px; white-space: nowrap;
   }
-  .lede { font-size: 18px; color: var(--ink-soft); margin: 0 0 26px; max-width: 46ch; }
+  .lede { font-size: 17.5px; color: var(--ink-soft); margin: 0 0 28px; max-width: 44ch; text-wrap: pretty; }
   .actions { display: flex; gap: 12px; flex-wrap: wrap; }
   .btn {
     display: inline-block; padding: 11px 22px; border-radius: 999px; font-weight: 600;
@@ -243,16 +272,22 @@ createQuickdraw({
   .btn:hover { text-decoration: none; background: var(--paper-2); }
   .btn.primary { background: var(--ink); color: var(--paper); }
   .btn.primary:hover { background: #000; }
-  .install { margin-top: 22px; display: inline-block; padding: 12px 18px; font-size: 13.5px; }
+  .install {
+    margin-top: 26px; display: inline-flex; align-items: center; gap: 8px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13.5px;
+    color: var(--ink-soft); border: 1px dashed var(--line); border-radius: 10px;
+    padding: 10px 16px; background: transparent;
+  }
+  .install .prompt { color: var(--accent); user-select: none; }
 
   .board-frame { position: relative; }
   #hero-board {
-    height: 460px; border-radius: var(--radius);
+    height: 470px; border-radius: var(--radius);
     border: 1.5px solid var(--line);
-    box-shadow: 0 24px 60px -24px rgba(28, 27, 24, 0.25);
+    box-shadow: 0 24px 60px -28px rgba(28, 27, 24, 0.28);
     overflow: hidden; background: #fff;
   }
-  .board-hint { font-size: 13.5px; color: var(--ink-soft); text-align: right; margin: 10px 4px 0; }
+  .board-hint { font-size: 13px; color: var(--ink-soft); text-align: center; margin: 12px 0 0; opacity: 0.8; }
 
   .features .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 18px; }
   .card {
@@ -262,17 +297,35 @@ createQuickdraw({
   .card h3 { margin: 0 0 8px; font-size: 17px; }
   .card p { margin: 0; color: var(--ink-soft); font-size: 15px; }
 
-  .quickstart .tabs { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
-  .tab h3 { margin: 0 0 10px; font-size: 15px; color: var(--ink-soft); }
-  .tab pre { margin: 0; height: calc(100% - 34px); }
+  .qs-panel {
+    background: #14130f; border-radius: var(--radius); overflow: hidden;
+    border: 1px solid #2a2822;
+  }
+  .qs-tabs {
+    display: flex; gap: 4px; padding: 10px 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+  }
+  .qs-tab {
+    appearance: none; border: none; background: transparent; cursor: pointer;
+    color: rgba(244, 242, 234, 0.55); font: 600 14px/1 inherit;
+    font-family: inherit; padding: 10px 14px 12px; border-radius: 8px 8px 0 0;
+    border-bottom: 2px solid transparent; margin-bottom: -1px;
+  }
+  .qs-tab:hover { color: rgba(244, 242, 234, 0.85); }
+  .qs-tab.on { color: #f4f2ea; border-bottom-color: var(--accent); }
+  .qs-body { padding: 6px 0; }
+  .qs-pane { display: none; }
+  .qs-pane.on { display: block; }
+  .qs-pane pre { margin: 0; border-radius: 0; background: transparent; padding: 14px 22px; }
+  .qs-pane pre:first-child {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    color: #9adb7c;
+  }
+  .qs-note { color: var(--ink-soft); font-size: 15px; margin-top: 14px; }
+  .qs-note a { margin-left: 6px; }
+  .qs-note code { margin: 0 2px; }
 
   .section-lede { color: var(--ink-soft); max-width: 62ch; margin: -8px 0 26px; }
-  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
-  table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 15px; }
-  th, td { text-align: left; padding: 12px 18px; border-bottom: 1px solid var(--line); }
-  thead th { font-size: 14px; background: var(--paper-2); }
-  tbody tr:last-child td { border-bottom: none; }
-  td:first-child { color: var(--ink-soft); }
   .fine-print { font-size: 13px; color: var(--ink-soft); margin-top: 12px; }
 
   .faq details {
@@ -286,7 +339,8 @@ createQuickdraw({
   .cta-final .actions { justify-content: center; }
 
   @media (max-width: 880px) {
-    .hero { grid-template-columns: 1fr; }
+    .hero { grid-template-columns: 1fr; gap: 32px; }
     #hero-board { height: 380px; }
+    h1 { font-size: clamp(32px, 9vw, 42px); }
   }
 </style>
