@@ -59,7 +59,7 @@ export const THEMES = {
     // at the same visual quiet.
     grid: {
       line: { minor: 'rgba(60, 50, 30, 0.13)', major: 'rgba(60, 50, 30, 0.26)' },
-      dot: { minor: 'rgba(60, 50, 30, 0.42)', major: 'rgba(60, 50, 30, 0.7)' },
+      dot: { minor: 'rgba(60, 50, 30, 0.26)', major: 'rgba(60, 50, 30, 0.45)' },
     },
   },
   dark: {
@@ -73,7 +73,7 @@ export const THEMES = {
     scribble: '#f2555a',
     grid: {
       line: { minor: 'rgba(255, 246, 224, 0.10)', major: 'rgba(255, 246, 224, 0.20)' },
-      dot: { minor: 'rgba(255, 246, 224, 0.30)', major: 'rgba(255, 246, 224, 0.52)' },
+      dot: { minor: 'rgba(255, 246, 224, 0.20)', major: 'rgba(255, 246, 224, 0.36)' },
     },
   },
 }
