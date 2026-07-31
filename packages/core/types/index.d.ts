@@ -16,6 +16,7 @@ export type FillId = 'none' | 'semi' | 'solid' | 'pattern'
 export type FontId = 'draw' | 'sans' | 'serif' | 'mono'
 export type GeoId = 'rectangle' | 'ellipse' | 'triangle' | 'diamond' | 'hexagon' | 'star'
 export type ThemeId = 'light' | 'dark'
+export type GridId = 'none' | 'lines' | 'dots'
 
 export interface Bounds { x: number; y: number; w: number; h: number }
 export interface Camera { x: number; y: number; z: number }
@@ -80,6 +81,7 @@ export interface Theme {
   selectionFill: string
   handleFill: string
   scribble: string
+  grid: { minor: string; major: string }
 }
 
 export interface ScribbleStroke {
@@ -93,6 +95,7 @@ export const SIZE_IDS: SizeId[]
 export const DASH_IDS: DashId[]
 export const FILL_IDS: FillId[]
 export const GEO_IDS: GeoId[]
+export const GRID_IDS: GridId[]
 export const THEMES: Record<ThemeId, Theme>
 export const SIZES: Record<SizeId, number>
 export const FONT_SIZES: Record<SizeId, number>
@@ -179,6 +182,7 @@ export interface EditorOptions {
   container: HTMLElement
   store?: Store
   theme?: ThemeId | string
+  grid?: GridId
   readonly?: boolean
   camera?: Camera
   styles?: Partial<Styles>
@@ -187,7 +191,7 @@ export interface EditorOptions {
 
 export type EditorEvent =
   | 'change' | 'history' | 'camera' | 'tool' | 'styles' | 'selection'
-  | 'theme' | 'edit' | 'scribbles' | 'penmode'
+  | 'theme' | 'grid' | 'edit' | 'scribbles' | 'penmode'
 
 /**
  * The editor: camera, tools, selection, input and rendering over a Store.
@@ -201,6 +205,7 @@ export class Editor {
   overlay: HTMLCanvasElement
   store: Store
   theme: Theme
+  grid: GridId
   readonly: boolean
   camera: Camera
   styles: Styles
@@ -228,6 +233,8 @@ export class Editor {
   setTool(tool: ToolId): void
   setGeoKind(kind: GeoId): void
   setTheme(id: ThemeId | string): void
+  /** 'none' | 'lines' | 'dots' — the backdrop behind the drawing. */
+  setGrid(id: GridId): void
   setReadonly(ro: boolean): void
   setPenMode(on: boolean): void
   setStyle<K extends keyof Styles>(key: K, value: Styles[K]): void
@@ -237,6 +244,8 @@ export class Editor {
   setSelection(ids: string[]): void
   selectionBounds(): Bounds | null
   deleteSelection(): void
+  /** Empty the board in one undoable step (⇧⌘⌫). */
+  clearBoard(): void
   selectAll(): void
   duplicateSelection(offset?: number): void
   bringToFront(): void
@@ -277,11 +286,22 @@ export class Editor {
 
 export interface BoardUI {
   setHidden(hidden: boolean): void
+  /** Live-toggle the board menu's theme / grid switches. */
+  setOptions(opts: { themeToggle?: boolean; gridControl?: boolean }): void
   destroy(): void
 }
 
+export interface BuildUIOptions {
+  hidden?: boolean
+  onSave?: (blob: Blob, background: boolean) => void
+  /** Show the theme switch in the board menu (default true). */
+  themeToggle?: boolean
+  /** Show the grid switch in the board menu (default true). */
+  gridControl?: boolean
+}
+
 /** Build the floating toolbar / style popovers / board menu for an editor. */
-export function buildUI(editor: Editor, opts?: { hidden?: boolean; onSave?: (blob: Blob, background: boolean) => void }): BoardUI
+export function buildUI(editor: Editor, opts?: BuildUIOptions): BoardUI
 
 export interface QuickdrawInstance {
   editor: Editor
@@ -292,6 +312,8 @@ export interface QuickdrawInstance {
 export interface CreateQuickdrawOptions extends EditorOptions {
   hideUi?: boolean
   onSave?: (blob: Blob, background: boolean) => void
+  themeToggle?: boolean
+  gridControl?: boolean
 }
 
 /** One call: editor + toolbar chrome in a container. */

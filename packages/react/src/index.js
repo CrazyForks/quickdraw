@@ -13,8 +13,11 @@ export * from '@tryquickdraw/core'
  *
  * props:
  *   theme        'light' | 'dark' (live-switchable)
+ *   grid         'none' | 'lines' | 'dots' — the backdrop (live-switchable)
  *   readonly     lock input (also hides the toolbar)
  *   hideUi       hide the stock toolbar (bring your own chrome)
+ *   themeToggle  show the theme switch in the board menu (default true)
+ *   gridControl  show the grid switch in the board menu (default true)
  *   store        external Store to render (share one across components/peers)
  *   snapshot     serialized document loaded on mount (ignored when `store` given)
  *   camera       initial camera { x, y, z }
@@ -23,6 +26,8 @@ export * from '@tryquickdraw/core'
  *   onMount      (editor, ui) => void
  *   onChange     (diff, source, editor) => void — every document change
  *   onSelectionChange  (ids: string[], editor) => void
+ *   onThemeChange      (themeId, editor) => void — the in-board switch moved it
+ *   onGridChange       (gridId, editor) => void
  *   onSave       (blob, background) => void — intercept toolbar PNG export
  *   className / style  applied to the host div
  *
@@ -31,8 +36,11 @@ export * from '@tryquickdraw/core'
 export const Quickdraw = forwardRef(function Quickdraw(props, ref) {
   const {
     theme = 'light',
+    grid = 'none',
     readonly = false,
     hideUi = false,
+    themeToggle = true,
+    gridControl = true,
     store,
     snapshot,
     camera,
@@ -41,6 +49,8 @@ export const Quickdraw = forwardRef(function Quickdraw(props, ref) {
     onMount,
     onChange,
     onSelectionChange,
+    onThemeChange,
+    onGridChange,
     onSave,
     className,
     style,
@@ -52,7 +62,7 @@ export const Quickdraw = forwardRef(function Quickdraw(props, ref) {
 
   // latest callbacks without re-mounting the editor
   const cbRef = useRef({})
-  cbRef.current = { onMount, onChange, onSelectionChange, onSave }
+  cbRef.current = { onMount, onChange, onSelectionChange, onThemeChange, onGridChange, onSave }
 
   // mount once (per store identity); everything else updates in place
   useEffect(() => {
@@ -63,6 +73,7 @@ export const Quickdraw = forwardRef(function Quickdraw(props, ref) {
       container: host,
       store: store || new Store(),
       theme,
+      grid,
       readonly,
       camera,
       styles,
@@ -70,6 +81,8 @@ export const Quickdraw = forwardRef(function Quickdraw(props, ref) {
     host.dataset.qdTheme = editor.theme.id
     const ui = buildUI(editor, {
       hidden: hideUi || readonly,
+      themeToggle,
+      gridControl,
       onSave: (blob, background) => {
         if (cbRef.current.onSave) return cbRef.current.onSave(blob, background)
         // default: download
@@ -94,6 +107,15 @@ export const Quickdraw = forwardRef(function Quickdraw(props, ref) {
     const unsubSel = editor.on('selection', () => {
       cbRef.current.onSelectionChange?.([...editor.selection], editor)
     })
+    // the board menu can move theme/grid too — tell the host so its own state
+    // (and any external toggle) can follow along
+    const unsubTheme = editor.on('theme', () => {
+      host.dataset.qdTheme = editor.theme.id
+      cbRef.current.onThemeChange?.(editor.theme.id, editor)
+    })
+    const unsubGrid = editor.on('grid', () => {
+      cbRef.current.onGridChange?.(editor.grid, editor)
+    })
 
     let ro = null
     if (autoFit) {
@@ -111,6 +133,8 @@ export const Quickdraw = forwardRef(function Quickdraw(props, ref) {
       ro?.disconnect()
       unsubChange()
       unsubSel()
+      unsubTheme()
+      unsubGrid()
       ui.destroy()
       editor.destroy()
       editorRef.current = null
@@ -128,11 +152,19 @@ export const Quickdraw = forwardRef(function Quickdraw(props, ref) {
   }, [theme])
 
   useEffect(() => {
+    editorRef.current?.setGrid(grid)
+  }, [grid])
+
+  useEffect(() => {
     const editor = editorRef.current
     if (!editor) return
     editor.setReadonly(readonly)
     uiRef.current?.setHidden(hideUi || readonly)
   }, [readonly, hideUi])
+
+  useEffect(() => {
+    uiRef.current?.setOptions({ themeToggle, gridControl })
+  }, [themeToggle, gridControl])
 
   useImperativeHandle(ref, () => ({
     get editor() { return editorRef.current },

@@ -18,7 +18,7 @@ import '@tryquickdraw/core/quickdraw.css'
 export default function App() {
   return (
     <div style={{ position: 'fixed', inset: 0 }}>
-      <Quickdraw theme="light" />
+      <Quickdraw theme="light" grid="lines" />
     </div>
   )
 }
@@ -27,6 +27,27 @@ export default function App() {
 That's a complete whiteboard: pen with pressure ink, highlighter, shapes,
 arrows, text, sticky notes, images, eraser, laser pointer, selection,
 pan/zoom/pinch, undo/redo, PNG export, and a responsive floating toolbar.
+
+## Theme & grid
+
+`theme` ('light' | 'dark') and `grid` ('none' | 'lines' | 'dots') are live
+props. The ⋮ board menu carries switches for both, so users can change them
+without any chrome of yours — the callbacks tell you when they do:
+
+```jsx
+const [theme, setTheme] = useState('light')
+const [grid, setGrid] = useState('lines')
+
+<Quickdraw
+  theme={theme}
+  grid={grid}
+  onThemeChange={setTheme}
+  onGridChange={setGrid}
+/>
+```
+
+If your app owns its own theme control, drop the in-board ones with
+`themeToggle={false}` / `gridControl={false}`.
 
 ## Persistence
 

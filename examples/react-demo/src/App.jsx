@@ -15,6 +15,7 @@ const load = () => {
 
 export default function App() {
   const [theme, setTheme] = useState('light')
+  const [grid, setGrid] = useState('lines')
   const boardRef = useRef(null)
   const store = useQuickdrawStore(load())
 
@@ -36,7 +37,11 @@ export default function App() {
         ref={boardRef}
         store={store}
         theme={theme}
+        grid={grid}
         autoFit={false}
+        // the board menu can move these too — keep this app's state in step
+        onThemeChange={setTheme}
+        onGridChange={setGrid}
         onMount={(editor) => {
           if (store.size) editor.fitContent()
           window.editor = editor // handy for devtools poking

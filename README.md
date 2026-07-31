@@ -29,7 +29,10 @@ A complete whiteboard, not a toolkit you assemble:
 - **Palm rejection** — once a stylus is seen, fingers steer the camera and the
   pen draws
 - **Undo/redo** — one entry per gesture, however many events it took
-- **Light & dark themes**, twelve named colors that resolve per theme
+- **Light & dark themes**, twelve named colors that resolve per theme, and a
+  theme switch built into the board menu
+- **Grid backdrops** — ruled lines or dotted intersections, spacing that adapts
+  to the zoom and fades in rather than popping
 - **PNG export** — whole board or selection, on paper or transparent
 - **A responsive floating toolbar** that sheds tools gracefully as the frame
   narrows — or hide it and build your own from the headless API
@@ -60,7 +63,7 @@ import '@tryquickdraw/core/quickdraw.css'
 export default function App() {
   return (
     <div style={{ position: 'fixed', inset: 0 }}>
-      <Quickdraw theme="light" />
+      <Quickdraw theme="light" grid="lines" />
     </div>
   )
 }
@@ -167,6 +170,7 @@ socket.onmessage = (e) => store.applyDiff(JSON.parse(e.data), 'remote')
 | Arrows (+`Shift`) | Nudge selection |
 | `⇧1` / `⇧0` | Zoom to fit / reset zoom |
 | `⌘+` / `⌘−` | Zoom in / out |
+| `⌫` / `⇧⌘⌫` | Delete selection / clear the board (undoable) |
 | `Enter` / `Esc` | Edit text / done |
 
 ## Repository

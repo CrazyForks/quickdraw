@@ -1,6 +1,7 @@
 import * as React from 'react'
 import type {
-  ColorId, DashId, Diff, DiffSource, FillId, FontId, SizeId, Snapshot, Styles, ThemeId, ToolId,
+  ColorId, DashId, Diff, DiffSource, FillId, FontId, GridId, SizeId, Snapshot, Styles,
+  ThemeId, ToolId,
 } from '@tryquickdraw/core'
 
 /** The self-contained HTML page the WebView renders (engine + CSS inlined). */
@@ -22,6 +23,7 @@ export interface QuickdrawRef {
   applyDiff(diff: Diff): void
   setTool(tool: ToolId): void
   setStyle(key: keyof Styles, value: ColorId | SizeId | DashId | FillId | FontId): void
+  setGrid(grid: GridId): void
   undo(): void
   redo(): void
   clear(): void
@@ -32,13 +34,23 @@ export interface QuickdrawRef {
 
 export interface QuickdrawProps {
   theme?: ThemeId | string
+  /** 'none' | 'lines' | 'dots' — the backdrop. Live-switchable. */
+  grid?: GridId
   readonly?: boolean
   hideUi?: boolean
+  /** Show the theme switch in the board menu (default true). */
+  themeToggle?: boolean
+  /** Show the grid switch in the board menu (default true). */
+  gridControl?: boolean
   snapshot?: Snapshot
   styles?: Partial<Styles>
   onReady?: () => void
   onChange?: (diff: Diff, source: DiffSource) => void
   onSelectionChange?: (ids: string[]) => void
+  /** The in-board switch changed the theme — mirror it into your own state. */
+  onThemeChange?: (theme: ThemeId) => void
+  /** The in-board switch changed the grid. */
+  onGridChange?: (grid: GridId) => void
   /** Toolbar PNG export handed to you as a data URL. */
   onSave?: (dataUrl: string, background: boolean) => void
   onError?: (message: string) => void

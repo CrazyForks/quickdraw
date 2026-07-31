@@ -24,7 +24,7 @@ your RN / Expo setup. In Expo: `npx expo install react-native-webview`.)
 import { Quickdraw } from '@tryquickdraw/react-native'
 
 export default function Board() {
-  return <Quickdraw theme="light" style={{ flex: 1 }} />
+  return <Quickdraw theme="light" grid="lines" style={{ flex: 1 }} />
 }
 ```
 
@@ -52,6 +52,13 @@ const png = await board.current.exportPng({ scale: 2 })
 board.current.undo()
 board.current.setTool('draw')
 ```
+
+## Theme & grid
+
+`theme` ('light' | 'dark') and `grid` ('none' | 'lines' | 'dots') are live
+props, and the ⋮ board menu carries switches for both. `onThemeChange` /
+`onGridChange` report in-board changes back so your state can follow;
+`themeToggle={false}` / `gridControl={false}` remove the switches.
 
 ## Real-time sync
 

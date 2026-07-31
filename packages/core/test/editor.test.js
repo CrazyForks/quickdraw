@@ -310,6 +310,123 @@ describe('readonly & theme', () => {
   })
 })
 
+// a ctx that remembers what it was asked to draw, so the lattice can be
+// checked by geometry rather than by eye
+function recordingCtx() {
+  const calls = []
+  const ctx = { globalAlpha: 1, lineWidth: 1, fillStyle: '', strokeStyle: '', calls }
+  for (const fn of ['save', 'restore', 'beginPath', 'moveTo', 'lineTo', 'arc', 'setTransform']) {
+    ctx[fn] = (...a) => calls.push([fn, ...a])
+  }
+  ctx.stroke = () => calls.push(['stroke', ctx.strokeStyle, ctx.globalAlpha])
+  ctx.fill = () => calls.push(['fill', ctx.fillStyle, ctx.globalAlpha])
+  return ctx
+}
+
+describe('grid', () => {
+  it('defaults to none, switches, and emits', () => {
+    const seen = []
+    editor.on('grid', () => seen.push(editor.grid))
+    expect(editor.grid).toBe('none')
+    editor.setGrid('lines')
+    editor.setGrid('lines') // no-op, no event
+    editor.setGrid('nonsense') // rejected
+    editor.setGrid('dots')
+    expect(editor.grid).toBe('dots')
+    expect(seen).toEqual(['lines', 'dots'])
+  })
+
+  it('draws nothing when off', () => {
+    const ctx = recordingCtx()
+    editor._drawGrid(ctx, { x: 0, y: 0, z: 1 }, 400, 300, 1)
+    expect(ctx.calls.length).toBe(0)
+  })
+
+  it('rules the frame at the base step, majors every fifth', () => {
+    editor.setGrid('lines')
+    const ctx = recordingCtx()
+    // 400x200 device px at zoom 1 → 40px steps: 11 columns (0..400), 6 rows
+    editor._drawGrid(ctx, { x: 0, y: 0, z: 1 }, 400, 200, 1)
+    const verticals = ctx.calls.filter((c) => c[0] === 'moveTo' && c[2] === 0).map((c) => c[1])
+    expect(verticals.sort((a, b) => a - b)).toEqual([0.5, 40.5, 80.5, 120.5, 160.5, 200.5, 240.5, 280.5, 320.5, 360.5, 400.5])
+    // two passes: minor then major, the majors darker
+    const strokes = ctx.calls.filter((c) => c[0] === 'stroke')
+    expect(strokes.length).toBe(2)
+    expect(strokes[0][1]).toBe(editor.theme.grid.minor)
+    expect(strokes[1][1]).toBe(editor.theme.grid.major)
+  })
+
+  it('doubles the step as you zoom out, halves it as you zoom in', () => {
+    editor.setGrid('lines')
+    const stepAt = (z) => {
+      const ctx = recordingCtx()
+      editor._drawGrid(ctx, { x: 0, y: 0, z }, 800, 400, 1)
+      const xs = [...new Set(ctx.calls.filter((c) => c[0] === 'moveTo' && c[2] === 0).map((c) => c[1]))]
+      xs.sort((a, b) => a - b)
+      return (xs[1] - xs[0]) / z // back to page units
+    }
+    expect(stepAt(1)).toBe(40)
+    expect(stepAt(0.3)).toBe(80) // doubled once: 80 * 0.3 = 24px on screen
+    expect(stepAt(3)).toBe(20)
+  })
+
+  it('dots mark intersections, the every-fifth pair bigger', () => {
+    editor.setGrid('dots')
+    const ctx = recordingCtx()
+    editor._drawGrid(ctx, { x: 0, y: 0, z: 1 }, 400, 200, 1)
+    const arcs = ctx.calls.filter((c) => c[0] === 'arc')
+    expect(arcs.length).toBe(11 * 6)
+    const radii = [...new Set(arcs.map((c) => c[3]))].sort((a, b) => a - b)
+    expect(radii).toEqual([1.15, 1.9])
+    // majors are where both axes land on a fifth: (0,0), (200,0), (400,0), (0,200)...
+    const big = arcs.filter((c) => c[3] === 1.9).map((c) => `${c[1]},${c[2]}`)
+    expect(big.sort()).toEqual(['0,0', '0,200', '200,0', '200,200', '400,0', '400,200'])
+  })
+
+  it('travels with the camera', () => {
+    editor.setGrid('lines')
+    const ctx = recordingCtx()
+    editor._drawGrid(ctx, { x: 10, y: 0, z: 1 }, 100, 100, 1)
+    const verticals = ctx.calls.filter((c) => c[0] === 'moveTo' && c[2] === 0).map((c) => c[1])
+    expect(verticals.sort((a, b) => a - b)).toEqual([10.5, 50.5, 90.5])
+  })
+})
+
+describe('clear board', () => {
+  it('⇧⌘⌫ empties the board in one undoable step', () => {
+    editor.setTool('draw')
+    drag(editor, [[10, 10], [40, 40]])
+    drag(editor, [[60, 10], [90, 40]])
+    expect(editor.store.shapes().length).toBe(2)
+
+    editor._keyDown({
+      key: 'Backspace', metaKey: true, shiftKey: true, ctrlKey: false,
+      preventDefault() {}, stopPropagation() {},
+    })
+    expect(editor.store.shapes().length).toBe(0)
+
+    editor.store.undo()
+    expect(editor.store.shapes().length).toBe(2)
+  })
+
+  it('plain ⌫ still only deletes the selection', () => {
+    editor.setTool('draw')
+    drag(editor, [[10, 10], [40, 40]])
+    drag(editor, [[60, 10], [90, 40]])
+    editor.setSelection([editor.store.shapes()[0].id])
+    editor._keyDown({
+      key: 'Backspace', metaKey: false, shiftKey: false, ctrlKey: false,
+      preventDefault() {}, stopPropagation() {},
+    })
+    expect(editor.store.shapes().length).toBe(1)
+  })
+
+  it('clearBoard on an empty board is a no-op (nothing to undo)', () => {
+    editor.clearBoard()
+    expect(editor.store.canUndo).toBe(false)
+  })
+})
+
 describe('laser', () => {
   it('scribbles are ephemeral (never in the store)', () => {
     editor.setTool('laser')
@@ -394,6 +511,62 @@ describe('createQuickdraw UI', () => {
     expect(board.editor.store.shapes().length).toBe(1)
     expect(btn('undo').disabled).toBe(false)
     expect(btn('redo').disabled).toBe(true)
+    board.destroy()
+    c2.remove()
+  })
+
+  it('the board menu switches theme and grid', () => {
+    const c2 = document.createElement('div')
+    document.body.appendChild(c2)
+    const board = createQuickdraw({ container: c2 })
+    c2.querySelector('.qd-dock button[data-name="menu"]').click()
+    const seg = (label) => [...c2.querySelectorAll('.qd-menu-row')]
+      .find((r) => r.textContent.trim().startsWith(label))
+    const btns = (label) => [...seg(label).querySelectorAll('.qd-seg-btn')]
+
+    expect(btns('Theme')[0].classList.contains('on')).toBe(true)
+    btns('Theme')[1].click()
+    expect(board.editor.theme.id).toBe('dark')
+    expect(btns('Theme')[1].classList.contains('on')).toBe(true)
+
+    expect(board.editor.grid).toBe('none')
+    btns('Grid')[1].click()
+    expect(board.editor.grid).toBe('lines')
+    btns('Grid')[2].click()
+    expect(board.editor.grid).toBe('dots')
+
+    board.destroy()
+    c2.remove()
+  })
+
+  it('a host can drop the theme/grid switches', () => {
+    const c2 = document.createElement('div')
+    document.body.appendChild(c2)
+    const board = createQuickdraw({ container: c2, themeToggle: false, gridControl: false })
+    c2.querySelector('.qd-dock button[data-name="menu"]').click()
+    expect(c2.querySelectorAll('.qd-menu-row').length).toBe(0)
+    // and back on again, live
+    board.ui.setOptions({ gridControl: true })
+    c2.querySelector('.qd-dock button[data-name="menu"]').click()
+    const rows = [...c2.querySelectorAll('.qd-menu-row')]
+    expect(rows.length).toBe(1)
+    expect(rows[0].textContent).toContain('Grid')
+    board.destroy()
+    c2.remove()
+  })
+
+  it('the menu clears the board', () => {
+    const c2 = document.createElement('div')
+    document.body.appendChild(c2)
+    const board = createQuickdraw({ container: c2 })
+    board.editor.setTool('draw')
+    drag(board.editor, [[10, 10], [40, 40]])
+    c2.querySelector('.qd-dock button[data-name="menu"]').click()
+    const clear = [...c2.querySelectorAll('.qd-menu-item')]
+      .find((b) => b.textContent.includes('Clear board'))
+    expect(clear.textContent).toContain('⇧⌘⌫')
+    clear.click()
+    expect(board.editor.store.shapes().length).toBe(0)
     board.destroy()
     c2.remove()
   })

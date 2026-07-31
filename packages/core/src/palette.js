@@ -53,6 +53,9 @@ export const THEMES = {
     selectionFill: 'rgba(47, 128, 236, 0.07)',
     handleFill: '#ffffff',
     scribble: '#f2555a', // the laser pointer
+    // the optional grid sits just above the paper: minor rules whisper, the
+    // every-fifth majors give the eye something to measure against
+    grid: { minor: 'rgba(60, 50, 30, 0.13)', major: 'rgba(60, 50, 30, 0.26)' },
   },
   dark: {
     id: 'dark',
@@ -63,8 +66,16 @@ export const THEMES = {
     selectionFill: 'rgba(79, 150, 246, 0.09)',
     handleFill: '#26231c',
     scribble: '#f2555a',
+    grid: { minor: 'rgba(255, 246, 224, 0.10)', major: 'rgba(255, 246, 224, 0.20)' },
   },
 }
+
+// Board backdrops. 'none' is bare paper; the other two draw the same lattice,
+// once as rules and once as the intersections only.
+export const GRID_IDS = ['none', 'lines', 'dots']
+// Lattice spacing in page px at zoom 1, and the every-Nth emphasis.
+export const GRID_STEP = 40
+export const GRID_MAJOR = 5
 
 export const themeOf = (id) => THEMES[id === 'dark' ? 'dark' : 'light']
 

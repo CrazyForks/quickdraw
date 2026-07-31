@@ -38,8 +38,11 @@ const handlers = {
     board = createQuickdraw({
       container: host,
       theme: m.theme || 'light',
+      grid: m.grid || 'none',
       readonly: !!m.readonly,
       hideUi,
+      themeToggle: m.themeToggle !== false,
+      gridControl: m.gridControl !== false,
       styles: m.styles || undefined,
       onSave: async (blob, background) => {
         post({ type: 'save', dataUrl: await blobToDataUrl(blob), background })
@@ -51,6 +54,12 @@ const handlers = {
     }
     board.editor.store.listen((diff, source) => post({ type: 'change', diff, source }))
     board.editor.on('selection', () => post({ type: 'selection', ids: [...board.editor.selection] }))
+    // the in-board menu can move these too — keep the RN side informed
+    board.editor.on('theme', () => {
+      host.dataset.qdTheme = board.editor.theme.id
+      post({ type: 'theme', theme: board.editor.theme.id })
+    })
+    board.editor.on('grid', () => post({ type: 'grid', grid: board.editor.grid }))
     post({ type: 'mounted' })
   },
   loadSnapshot(m) {
@@ -66,11 +75,12 @@ const handlers = {
     board.editor.setReadonly(!!m.readonly)
     board.ui.setHidden(!!m.readonly || hideUi)
   },
+  setGrid(m) { board.editor.setGrid(m.grid) },
   setTool(m) { board.editor.setTool(m.tool) },
   setStyle(m) { board.editor.setStyle(m.key, m.value) },
   undo() { board.editor.store.undo() },
   redo() { board.editor.store.redo() },
-  clear() { board.editor.store.clear(); board.editor.setSelection([]) },
+  clear() { board.editor.clearBoard() },
   fitContent(m) { board.editor.fitContent({ animate: m.animate || 0 }) },
   getSnapshot(m) { post({ type: 'snapshot', id: m.id, snapshot: board.editor.store.getSnapshot() }) },
   async exportPng(m) {

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import type {
-  Camera, Diff, DiffSource, Editor, BoardUI, Snapshot, Store, Styles, ThemeId,
+  Camera, Diff, DiffSource, Editor, BoardUI, GridId, Snapshot, Store, Styles, ThemeId,
 } from '@tryquickdraw/core'
 
 export * from '@tryquickdraw/core'
@@ -13,10 +13,16 @@ export interface QuickdrawRef {
 export interface QuickdrawProps {
   /** 'light' | 'dark' — live-switchable. */
   theme?: ThemeId | string
+  /** 'none' | 'lines' | 'dots' — the backdrop. Live-switchable. */
+  grid?: GridId
   /** Lock input (also hides the toolbar). */
   readonly?: boolean
   /** Hide the stock toolbar (bring your own chrome). */
   hideUi?: boolean
+  /** Show the theme switch in the board menu (default true). */
+  themeToggle?: boolean
+  /** Show the grid switch in the board menu (default true). */
+  gridControl?: boolean
   /** External Store to render (share one across components/peers). */
   store?: Store
   /** Serialized document loaded on mount (ignored when `store` is given). */
@@ -30,6 +36,10 @@ export interface QuickdrawProps {
   onMount?: (editor: Editor, ui: BoardUI) => void
   onChange?: (diff: Diff, source: DiffSource, editor: Editor) => void
   onSelectionChange?: (ids: string[], editor: Editor) => void
+  /** The in-board switch changed the theme — mirror it into your own state. */
+  onThemeChange?: (theme: ThemeId, editor: Editor) => void
+  /** The in-board switch changed the grid. */
+  onGridChange?: (grid: GridId, editor: Editor) => void
   /** Intercept toolbar PNG export (default: browser download). */
   onSave?: (blob: Blob, background: boolean) => void
   className?: string

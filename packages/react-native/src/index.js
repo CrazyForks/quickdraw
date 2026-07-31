@@ -17,13 +17,18 @@ export { createBridge, encodeDispatch } from './bridge.js'
  *
  * props:
  *   theme        'light' | 'dark' (live-switchable)
+ *   grid         'none' | 'lines' | 'dots' — the backdrop (live-switchable)
  *   readonly     lock input (also hides the toolbar)
  *   hideUi       hide the stock toolbar
+ *   themeToggle  show the theme switch in the board menu (default true)
+ *   gridControl  show the grid switch in the board menu (default true)
  *   snapshot     serialized document loaded on mount
  *   styles       initial pen styles { color, size, dash, fill, font }
  *   onReady      () => void — board mounted inside the WebView
  *   onChange     (diff, source) => void — every document change
  *   onSelectionChange  (ids: string[]) => void
+ *   onThemeChange      (themeId) => void — the in-board switch moved it
+ *   onGridChange       (gridId) => void
  *   onSave       (dataUrl, background) => void — toolbar PNG export
  *   onError      (message) => void
  *   style        RN style for the WebView container
@@ -31,20 +36,25 @@ export { createBridge, encodeDispatch } from './bridge.js'
  *
  * ref (all safe to call once onReady fired; earlier calls are queued):
  *   loadSnapshot(snapshot), applyDiff(diff), setTool(tool),
- *   setStyle(key, value), undo(), redo(), clear(), fitContent(),
+ *   setStyle(key, value), setGrid(grid), undo(), redo(), clear(), fitContent(),
  *   getSnapshot() -> Promise<snapshot>,
  *   exportPng(opts) -> Promise<dataUrl | null>
  */
 export const Quickdraw = forwardRef(function Quickdraw(props, ref) {
   const {
     theme = 'light',
+    grid = 'none',
     readonly = false,
     hideUi = false,
+    themeToggle = true,
+    gridControl = true,
     snapshot,
     styles,
     onReady,
     onChange,
     onSelectionChange,
+    onThemeChange,
+    onGridChange,
     onSave,
     onError,
     style,
@@ -69,11 +79,13 @@ export const Quickdraw = forwardRef(function Quickdraw(props, ref) {
   const st = stateRef.current
 
   const cbRef = useRef({})
-  cbRef.current = { onReady, onChange, onSelectionChange, onSave, onError }
+  cbRef.current = { onReady, onChange, onSelectionChange, onThemeChange, onGridChange, onSave, onError }
 
   // initial props for the init message (read once, on 'ready')
   const initRef = useRef(null)
-  if (!initRef.current) initRef.current = { theme, readonly, hideUi, snapshot, styles }
+  if (!initRef.current) {
+    initRef.current = { theme, grid, readonly, hideUi, themeToggle, gridControl, snapshot, styles }
+  }
 
   const onMessage = (e) => {
     let m
@@ -95,6 +107,8 @@ export const Quickdraw = forwardRef(function Quickdraw(props, ref) {
       case 'mounted': cbRef.current.onReady?.(); break
       case 'change': cbRef.current.onChange?.(m.diff, m.source); break
       case 'selection': cbRef.current.onSelectionChange?.(m.ids); break
+      case 'theme': cbRef.current.onThemeChange?.(m.theme); break
+      case 'grid': cbRef.current.onGridChange?.(m.grid); break
       case 'save': cbRef.current.onSave?.(m.dataUrl, m.background); break
       case 'snapshot': st.bridge.settle(m.id, m.snapshot); break
       case 'export': st.bridge.settle(m.id, m.dataUrl); break
@@ -105,6 +119,7 @@ export const Quickdraw = forwardRef(function Quickdraw(props, ref) {
   // live prop updates (the first run lands before init and is queued behind
   // it, so the board simply re-applies the initial values — harmless)
   useEffect(() => { st.bridge.post({ type: 'setTheme', theme }) }, [theme])
+  useEffect(() => { st.bridge.post({ type: 'setGrid', grid }) }, [grid])
   useEffect(() => { st.bridge.post({ type: 'setReadonly', readonly }) }, [readonly])
   useEffect(() => () => st.bridge.dispose(), [])
 
@@ -113,6 +128,7 @@ export const Quickdraw = forwardRef(function Quickdraw(props, ref) {
     applyDiff: (diff) => st.bridge.post({ type: 'applyDiff', diff }),
     setTool: (tool) => st.bridge.post({ type: 'setTool', tool }),
     setStyle: (key, value) => st.bridge.post({ type: 'setStyle', key, value }),
+    setGrid: (g) => st.bridge.post({ type: 'setGrid', grid: g }),
     undo: () => st.bridge.post({ type: 'undo' }),
     redo: () => st.bridge.post({ type: 'redo' }),
     clear: () => st.bridge.post({ type: 'clear' }),

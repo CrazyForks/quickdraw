@@ -76,6 +76,33 @@ describe('<Quickdraw />', () => {
     expect(container.querySelector('.qd-ui').classList.contains('qd-hidden')).toBe(false)
   })
 
+  it('drives the grid prop and reports in-board switches back', () => {
+    const onThemeChange = vi.fn()
+    const onGridChange = vi.fn()
+    const ref = createRef()
+    const { rerender, container } = render(
+      <Quickdraw ref={ref} grid="lines" onThemeChange={onThemeChange} onGridChange={onGridChange} />
+    )
+    expect(ref.current.editor.grid).toBe('lines')
+
+    rerender(
+      <Quickdraw ref={ref} grid="dots" onThemeChange={onThemeChange} onGridChange={onGridChange} />
+    )
+    expect(ref.current.editor.grid).toBe('dots')
+    expect(onGridChange).toHaveBeenCalledWith('dots', ref.current.editor)
+
+    // the board menu's own switches report back so host state can follow
+    act(() => {
+      container.querySelector('.qd-dock button[data-name="menu"]').click()
+    })
+    const themeBtns = [...container.querySelectorAll('.qd-menu-row')]
+      .find((r) => r.textContent.trim().startsWith('Theme'))
+      .querySelectorAll('.qd-seg-btn')
+    act(() => { themeBtns[1].click() })
+    expect(onThemeChange).toHaveBeenCalledWith('dark', ref.current.editor)
+    expect(container.firstChild.dataset.qdTheme).toBe('dark')
+  })
+
   it('two components sharing one store see the same document', () => {
     const store = new Store()
     const a = createRef(), b = createRef()

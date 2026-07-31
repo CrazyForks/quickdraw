@@ -25,6 +25,7 @@
     const board = createQuickdraw({
       container: document.getElementById('board'),
       theme: 'light',
+      grid: 'lines', // 'none' | 'lines' | 'dots' — also switchable in the ⋮ menu
     })
 
     // persistence: the whole document round-trips as JSON
@@ -43,10 +44,12 @@
 
     const btn = document.getElementById('theme')
     btn.onclick = () => {
-      const next = board.editor.theme.id === 'light' ? 'dark' : 'light'
-      board.editor.setTheme(next)
-      btn.textContent = next === 'light' ? 'dark' : 'light'
+      board.editor.setTheme(board.editor.theme.id === 'light' ? 'dark' : 'light')
     }
+    // the ⋮ menu can switch the theme too — keep this button's label honest
+    board.editor.on('theme', () => {
+      btn.textContent = board.editor.theme.id === 'light' ? 'dark' : 'light'
+    })
 
     window.board = board // for poking around in devtools
   </script>

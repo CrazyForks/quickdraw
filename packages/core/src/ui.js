@@ -6,7 +6,7 @@
 // the standard set users already know.
 // Dependency-free ESM (see palette.js).
 
-import { COLOR_IDS, SIZE_IDS, DASH_IDS, FILL_IDS, GEO_IDS, THEMES } from './palette.js'
+import { COLOR_IDS, SIZE_IDS, DASH_IDS, FILL_IDS, GEO_IDS, GRID_IDS, THEMES } from './palette.js'
 
 const SVG = (inner) =>
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`
@@ -37,7 +37,23 @@ const ICONS = {
   diamond: SVG('<path d="M2.7 10.3a2.41 2.41 0 0 0 0 3.41l7.59 7.59a2.41 2.41 0 0 0 3.41 0l7.59-7.59a2.41 2.41 0 0 0 0-3.41l-7.59-7.59a2.41 2.41 0 0 0-3.41 0Z"/>'),
   hexagon: SVG('<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>'),
   star: SVG('<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>'),
+  // menu glyphs
+  download: SVG('<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/>'),
+  transparent: SVG('<rect width="18" height="18" x="3" y="3" rx="2"/><rect x="4" y="4" width="8" height="8" fill="currentColor" fill-opacity=".22" stroke="none"/><rect x="12" y="12" width="8" height="8" fill="currentColor" fill-opacity=".22" stroke="none"/>'),
+  copy: SVG('<rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2"/>'),
+  fit: SVG('<path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/>'),
+  trash: SVG('<path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>'),
+  sun: SVG('<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>'),
+  moon: SVG('<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>'),
 }
+
+// grid backdrops: bare paper, ruled lines, dotted intersections
+const GRID_ICONS = {
+  none: SVG('<rect width="18" height="18" x="3" y="3" rx="2"/>'),
+  lines: SVG('<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18" stroke-width="1.4"/>'),
+  dots: SVG('<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M8 8h.01M12 8h.01M16 8h.01M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01" stroke-width="2.2"/>'),
+}
+const GRID_TIPS = { none: 'No grid', lines: 'Grid lines', dots: 'Grid dots' }
 
 const DASH_ICONS = {
   draw: SVG('<path d="M4 15c3.2-4.5 6-5.5 8-3.5s5 1.5 8-4.5"/>'),
@@ -65,8 +81,11 @@ const DOCK_NAMES = ['undo', 'redo', 'select', 'hand', 'draw', 'highlight', 'eras
 // what gives way first as the frame narrows (select and draw never yield)
 const DROP_ORDER = ['redo', 'undo', 'hand', 'laser', 'line', 'note', 'image', 'highlight', 'text', 'arrow', 'eraser', 'geo']
 
-export function buildUI(editor, { hidden = false, onSave } = {}) {
+export function buildUI(editor, { hidden = false, onSave, themeToggle = true, gridControl = true } = {}) {
   const root = editor.container
+  // menu switches the host can drop — an app that owns its own theme chrome
+  // doesn't want a second control for it on the canvas
+  const opts = { themeToggle: themeToggle !== false, gridControl: gridControl !== false }
   const ui = el('div', 'qd-ui')
   root.appendChild(ui)
 
@@ -245,9 +264,15 @@ export function buildUI(editor, { hidden = false, onSave } = {}) {
   // ---- menu ----------------------------------------------------------------
   function buildMenu(p) {
     p.classList.add('qd-menu-pop')
-    const item = (label, fn) => {
+    const item = (icon, label, key, fn) => {
       const b = el('button', 'qd-menu-item')
-      b.textContent = label
+      b.innerHTML = `<span class="qd-mi-ico">${ICONS[icon] || ''}</span><span class="qd-mi-label"></span>`
+      b.querySelector('.qd-mi-label').textContent = label
+      if (key) {
+        const k = el('span', 'qd-mi-key')
+        k.textContent = key
+        b.appendChild(k)
+      }
       b.addEventListener('click', async (e) => {
         e.stopPropagation()
         closePopover()
@@ -256,21 +281,58 @@ export function buildUI(editor, { hidden = false, onSave } = {}) {
       p.appendChild(b)
       return b
     }
+    // a labelled row of mutually exclusive icon buttons
+    const segment = (label, ids, { icons, tips, current, onPick }) => {
+      const row = el('div', 'qd-menu-row')
+      const cap = el('span', 'qd-mi-label')
+      cap.textContent = label
+      row.appendChild(cap)
+      const seg = el('div', 'qd-seg')
+      for (const id of ids) {
+        const b = el('button', 'qd-seg-btn' + (current === id ? ' on' : ''))
+        b.innerHTML = icons[id]
+        b.title = tips[id]
+        b.setAttribute('aria-label', tips[id])
+        b.addEventListener('click', (e) => {
+          e.stopPropagation()
+          onPick(id)
+          seg.querySelectorAll('.qd-seg-btn').forEach((x, i) => x.classList.toggle('on', ids[i] === id))
+        })
+        seg.appendChild(b)
+      }
+      row.appendChild(seg)
+      p.appendChild(row)
+      return row
+    }
+
     const hasSel = editor.selection.size > 0
-    item('Export as PNG', () => saveImage(true, null))
-    item('Export as PNG — transparent', () => saveImage(false, null))
-    if (hasSel) item('Export selection as PNG', () => saveImage(true, new Set(editor.selection)))
-    item(hasSel ? 'Copy selection as image' : 'Copy as image', async () => {
+    item('download', 'Export as PNG', null, () => saveImage(true, null))
+    item('transparent', 'Export — transparent', null, () => saveImage(false, null))
+    if (hasSel) item('image', 'Export selection', null, () => saveImage(true, new Set(editor.selection)))
+    item('copy', hasSel ? 'Copy selection as image' : 'Copy as image', null, async () => {
       const blob = await editor.exportImage({ background: true, ids: hasSel ? new Set(editor.selection) : null })
       if (blob) await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })])
     })
     p.appendChild(el('i', 'qd-menu-div'))
-    if (hasSel) item('Delete selection — ⌫', () => editor.deleteSelection())
-    item('Zoom to fit — ⇧1', () => editor.fitContent({ animate: 220 }))
-    item('Clear board', () => {
-      editor.store.clear()
-      editor.setSelection([])
-    })
+    if (hasSel) item('trash', 'Delete selection', '⌫', () => editor.deleteSelection())
+    item('fit', 'Zoom to fit', '⇧1', () => editor.fitContent({ animate: 220 }))
+    item('trash', 'Clear board', '⇧⌘⌫', () => editor.clearBoard())
+
+    if (opts.gridControl || opts.themeToggle) p.appendChild(el('i', 'qd-menu-div'))
+    if (opts.gridControl) {
+      segment('Grid', GRID_IDS, {
+        icons: GRID_ICONS, tips: GRID_TIPS, current: editor.grid,
+        onPick: (id) => editor.setGrid(id),
+      })
+    }
+    if (opts.themeToggle) {
+      segment('Theme', ['light', 'dark'], {
+        icons: { light: ICONS.sun, dark: ICONS.moon },
+        tips: { light: 'Light theme', dark: 'Dark theme' },
+        current: editor.theme.id,
+        onPick: (id) => editor.setTheme(id),
+      })
+    }
   }
   async function saveImage(background, ids) {
     const blob = await editor.exportImage({ background, ids })
@@ -355,6 +417,7 @@ export function buildUI(editor, { hidden = false, onSave } = {}) {
     editor.on('history', refresh),
     editor.on('selection', refresh),
     editor.on('theme', refresh),
+    editor.on('grid', refresh),
   ]
 
   // popovers close when the pointer goes to the canvas
@@ -367,6 +430,12 @@ export function buildUI(editor, { hidden = false, onSave } = {}) {
 
   return {
     setHidden,
+    // live toggles for the menu switches; an open menu is rebuilt on next open
+    setOptions(next = {}) {
+      if ('themeToggle' in next) opts.themeToggle = next.themeToggle !== false
+      if ('gridControl' in next) opts.gridControl = next.gridControl !== false
+      if (popover?.name === 'menu') closePopover()
+    },
     destroy() {
       offs.forEach((f) => f())
       ro.disconnect()

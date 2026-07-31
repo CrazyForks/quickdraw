@@ -168,19 +168,68 @@
   background: currentColor;
 }
 
-.qd-menu-pop { display: flex; flex-direction: column; min-width: 200px; padding: 6px; }
+.qd-menu-pop { display: flex; flex-direction: column; min-width: 232px; padding: 6px; }
 .qd-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   border: none;
   background: transparent;
   color: rgba(255, 255, 255, 0.88);
   text-align: left;
   font: 500 12.5px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  padding: 8px 10px;
+  padding: 7px 10px;
   border-radius: 8px;
   cursor: pointer;
 }
 .qd-menu-item:hover { background: rgba(255, 255, 255, 0.1); }
+.qd-mi-ico { display: flex; flex: 0 0 16px; color: rgba(255, 255, 255, 0.62); }
+.qd-mi-ico svg { width: 16px; height: 16px; }
+.qd-menu-item:hover .qd-mi-ico { color: inherit; }
+.qd-mi-label { flex: 1 1 auto; white-space: nowrap; }
+.qd-mi-key {
+  flex: 0 0 auto;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
 .qd-menu-div { display: block; height: 1px; margin: 5px 4px; background: rgba(255, 255, 255, 0.1); }
+
+/* labelled rows of mutually exclusive icon buttons (grid, theme) */
+.qd-menu-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 10px 4px 10px;
+  color: rgba(255, 255, 255, 0.88);
+  font: 500 12.5px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+.qd-menu-row + .qd-menu-row { margin-top: 2px; }
+.qd-seg {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.08);
+}
+.qd-seg-btn {
+  width: 30px;
+  height: 26px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background 120ms ease, color 120ms ease;
+}
+.qd-seg-btn svg { width: 16px; height: 16px; }
+.qd-seg-btn:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+.qd-seg-btn.on { background: rgba(255, 255, 255, 0.92); color: #211d14; }
 
 /* ---- text editing ---- */
 .qd-text-edit {

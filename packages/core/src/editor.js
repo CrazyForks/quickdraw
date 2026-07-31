@@ -4,7 +4,7 @@
 // Dependency-free ESM: runs in any modern browser as-is, no build step.
 
 import { Store, newId } from './store.js'
-import { themeOf, SIZES, FONT_SIZES, GEO_IDS, COLOR_IDS } from './palette.js'
+import { themeOf, SIZES, FONT_SIZES, GEO_IDS, COLOR_IDS, GRID_IDS, GRID_STEP, GRID_MAJOR } from './palette.js'
 import {
   localBounds, pageBounds, toLocal, drawShape, hitShape, marqueeHits,
   scaleShape, textLayout, noteLayout, NOTE_W, sampleLinePts,
@@ -23,10 +23,11 @@ const DEFAULT_STYLES = { color: 'black', size: 'm', dash: 'draw', fill: 'none', 
 export const TOOLS = ['select', 'hand', 'draw', 'highlight', 'eraser', 'laser', 'arrow', 'line', 'geo', 'text', 'note']
 
 export class Editor {
-  constructor({ container, store, theme = 'light', readonly = false, camera, styles, geoKind } = {}) {
+  constructor({ container, store, theme = 'light', grid = 'none', readonly = false, camera, styles, geoKind } = {}) {
     this.container = container
     this.store = store || new Store()
     this.theme = themeOf(theme)
+    this.grid = GRID_IDS.includes(grid) ? grid : 'none'
     this.readonly = !!readonly
     this.camera = camera || { x: 0, y: 0, z: 1 }
     this.styles = { ...DEFAULT_STYLES, ...(styles || {}) }
@@ -255,6 +256,13 @@ export class Editor {
     this.requestRender()
     this.emit('theme')
   }
+  // 'none' | 'lines' | 'dots' — the backdrop behind the drawing
+  setGrid(id) {
+    if (!GRID_IDS.includes(id) || id === this.grid) return
+    this.grid = id
+    this.requestRender()
+    this.emit('grid')
+  }
   setReadonly(ro) {
     this.readonly = !!ro
     if (ro) { this._cancelSession(); this._commitText(); this.setSelection([]) }
@@ -333,6 +341,14 @@ export class Editor {
   deleteSelection() {
     if (!this.selection.size) return
     this.store.remove([...this.selection])
+    this.setSelection([])
+  }
+  // Empties the board in one undoable step (⇧⌘⌫, or the board menu).
+  clearBoard() {
+    if (!this.store.ids().length) return
+    this._cancelSession()
+    this._commitText()
+    this.store.clear()
     this.setSelection([])
   }
   selectAll() {
@@ -1210,6 +1226,12 @@ export class Editor {
       else this.setTool('select')
       return
     }
+    // wipe the board — two modifiers deep, and undoable like any other edit
+    if (meta && e.shiftKey && (k === 'delete' || k === 'backspace')) {
+      e.preventDefault()
+      this.clearBoard()
+      return
+    }
     if (k === 'delete' || k === 'backspace') { this.deleteSelection(); return }
     if (k === 'enter' && this.selection.size === 1) {
       const s = this.store.get([...this.selection][0])
@@ -1413,6 +1435,8 @@ export class Editor {
     if (background) {
       ctx.fillStyle = this.theme.background
       ctx.fillRect(0, 0, canvas.width, canvas.height)
+      // the grid travels with the paper: an exported board looks like the board
+      this._drawGrid(ctx, { x: -b.x, y: -b.y, z: k }, canvas.width, canvas.height, 1)
     }
     ctx.setTransform(k, 0, 0, k, -b.x * k, -b.y * k)
     // make sure every image asset is decoded before the snap
@@ -1459,6 +1483,7 @@ export class Editor {
     } else {
       ctx.clearRect(0, 0, w * dpr, h * dpr)
     }
+    if (background) this._drawGrid(ctx, cam, w * dpr, h * dpr, dpr)
     ctx.setTransform(cam.z * dpr, 0, 0, cam.z * dpr, cam.x * cam.z * dpr, cam.y * cam.z * dpr)
     const vp = { x: -cam.x, y: -cam.y, w: w / cam.z, h: h / cam.z }
     const pad = 64 / cam.z
@@ -1476,6 +1501,58 @@ export class Editor {
       })
     }
     ctx.setTransform(1, 0, 0, 1, 0, 0)
+  }
+
+  // The lattice, drawn in device pixels so rules stay hairline-crisp at any
+  // zoom. Spacing doubles or halves to stay in a comfortable band, and a new
+  // level fades in as you zoom rather than popping into place.
+  // W/H are device px; the ctx must be untransformed.
+  _drawGrid(ctx, cam, W, H, dpr) {
+    const g = this.theme.grid
+    if (this.grid === 'none' || !g || !(cam.z > 0)) return
+    let step = GRID_STEP
+    while (step * cam.z < 18) step *= 2
+    while (step * cam.z > 72) step /= 2
+    const fade = clamp((step * cam.z - 16) / 14, 0, 1)
+    if (fade <= 0) return
+    const z = cam.z * dpr
+    // first line/dot of each axis that lands inside the frame
+    const n0 = Math.ceil(-cam.x / step)
+    const m0 = Math.ceil(-cam.y / step)
+    const isMajor = (i) => i % GRID_MAJOR === 0
+    const cols = [], rows = []
+    for (let n = n0, x = (n0 * step + cam.x) * z; x <= W; n++, x += step * z) cols.push([x, isMajor(n)])
+    for (let m = m0, y = (m0 * step + cam.y) * z; y <= H; m++, y += step * z) rows.push([y, isMajor(m)])
+
+    ctx.save()
+    if (this.grid === 'lines') {
+      for (const major of [false, true]) {
+        ctx.beginPath()
+        // half-pixel offsets keep a 1px rule on one device pixel, not two
+        for (const [x, m] of cols) if (m === major) { const p = Math.round(x) + 0.5; ctx.moveTo(p, 0); ctx.lineTo(p, H) }
+        for (const [y, m] of rows) if (m === major) { const p = Math.round(y) + 0.5; ctx.moveTo(0, p); ctx.lineTo(W, p) }
+        ctx.strokeStyle = major ? g.major : g.minor
+        ctx.globalAlpha = fade
+        ctx.lineWidth = 1
+        ctx.stroke()
+      }
+    } else {
+      for (const major of [false, true]) {
+        const r = (major ? 1.9 : 1.15) * dpr
+        ctx.beginPath()
+        for (const [y, my] of rows) {
+          for (const [x, mx] of cols) {
+            if ((mx && my) !== major) continue
+            ctx.moveTo(x + r, y)
+            ctx.arc(x, y, r, 0, Math.PI * 2)
+          }
+        }
+        ctx.fillStyle = major ? g.major : g.minor
+        ctx.globalAlpha = fade
+        ctx.fill()
+      }
+    }
+    ctx.restore()
   }
 
   render() {

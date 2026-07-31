@@ -24,6 +24,7 @@ import '@tryquickdraw/core/quickdraw.css'
 const board = createQuickdraw({
   container: document.getElementById('board'),
   theme: 'light', // or 'dark'
+  grid: 'lines',  // 'none' (default) | 'lines' | 'dots'
 })
 
 // the document store emits a diff after every change
@@ -39,7 +40,31 @@ That's a complete whiteboard: pen with pressure/velocity ink, highlighter,
 shapes, arrows with bendable curves, text, sticky notes, images
 (paste/drop/pick), eraser, laser pointer, selection with resize/rotate,
 pan/zoom/pinch, undo/redo, PNG export, a responsive floating toolbar, light and
-dark themes, and full keyboard shortcuts.
+dark themes, grid backdrops, and full keyboard shortcuts.
+
+## Theme, grid, and the board menu
+
+Both live on the editor and in the ⋮ board menu, so users can switch them
+without you building any chrome:
+
+```js
+board.editor.setTheme('dark')     // emits 'theme'
+board.editor.setGrid('dots')      // 'none' | 'lines' | 'dots', emits 'grid'
+board.editor.clearBoard()         // one undoable step (⇧⌘⌫)
+
+// mirror in-board switches into your own app state
+board.editor.on('theme', () => setMyTheme(board.editor.theme.id))
+board.editor.on('grid', () => setMyGrid(board.editor.grid))
+```
+
+If your app owns its own theme chrome, drop the in-board switches:
+
+```js
+createQuickdraw({ container, themeToggle: false, gridControl: false })
+```
+
+The grid spacing adapts to the zoom (doubling and halving around a 40px page
+step, majors every fifth) and travels into PNG exports that keep the paper.
 
 ## Headless / custom UI
 
@@ -50,7 +75,7 @@ editor bare and bring your own chrome:
 import { Editor } from '@tryquickdraw/core'
 import '@tryquickdraw/core/quickdraw.css'
 
-const editor = new Editor({ container, theme: 'dark' })
+const editor = new Editor({ container, theme: 'dark', grid: 'dots' })
 editor.setTool('draw')
 editor.setStyle('color', 'blue')
 editor.on('selection', () => console.log([...editor.selection]))
