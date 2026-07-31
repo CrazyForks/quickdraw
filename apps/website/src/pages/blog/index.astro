@@ -1,0 +1,42 @@
+---
+import Base from '../../layouts/Base.astro'
+
+const posts = Object.values(
+  import.meta.glob('./*.md', { eager: true })
+).sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date))
+---
+<Base
+  title="Blog — Quickdraw"
+  description="Guides and honest comparisons from the Quickdraw project: whiteboard SDKs, infinite canvases, real-time sync, and building drawing tools for the web and React Native."
+>
+  <main class="blog-index">
+    <h1>The Quickdraw blog</h1>
+    <p class="lede">Guides, comparisons, and engine notes from an open-source whiteboard SDK.</p>
+    <ul>
+      {posts.map((p) => (
+        <li>
+          <a href={p.url + '/'}>
+            <h2>{p.frontmatter.title}</h2>
+            <p>{p.frontmatter.description}</p>
+            <span class="date">{new Date(p.frontmatter.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </main>
+</Base>
+
+<style>
+  .blog-index { max-width: 760px; margin: 0 auto; padding: 48px 20px 0; }
+  h1 { font-size: clamp(30px, 4.6vw, 40px); margin: 0 0 8px; letter-spacing: -0.015em; }
+  .lede { color: var(--ink-soft); margin: 0 0 34px; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  li a {
+    display: block; background: #fff; border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 22px 26px; margin-bottom: 14px; color: inherit;
+  }
+  li a:hover { text-decoration: none; border-color: var(--accent); }
+  li h2 { font-size: 20px; margin: 0 0 6px; color: var(--ink); }
+  li p { margin: 0 0 10px; color: var(--ink-soft); font-size: 15px; }
+  .date { font-size: 13px; color: var(--ink-soft); }
+</style>

@@ -6,6 +6,18 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev", "--workspace=quickdraw-react-demo", "--", "--port", "5199", "--strictPort"],
       "port": 5199
+    },
+    {
+      "name": "website",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--workspace=quickdraw-website", "--", "--port", "4399"],
+      "port": 4399
+    },
+    {
+      "name": "app",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--workspace=quickdraw-app", "--", "--port", "5299", "--strictPort"],
+      "port": 5299
     }
   ]
 }

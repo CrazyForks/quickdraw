@@ -6,7 +6,8 @@
   "type": "module",
   "workspaces": [
     "packages/*",
-    "examples/react-demo"
+    "examples/react-demo",
+    "apps/*"
   ],
   "scripts": {
     "test": "vitest run",

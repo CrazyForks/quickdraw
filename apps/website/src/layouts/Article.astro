@@ -1,0 +1,44 @@
+---
+import Base from './Base.astro'
+import { SITE_URL } from '../consts.js'
+
+// Shared layout for docs and blog posts (markdown pages pass frontmatter).
+const { frontmatter } = Astro.props
+const fm = frontmatter ?? Astro.props
+const isPost = Boolean(fm.date)
+
+const jsonLd = isPost
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: fm.title,
+      description: fm.description,
+      datePublished: fm.date,
+      author: { '@type': 'Organization', name: 'Quickdraw', url: SITE_URL },
+      mainEntityOfPage: new URL(Astro.url.pathname, SITE_URL).href,
+    }
+  : null
+---
+<Base title={`${fm.title} — Quickdraw`} description={fm.description} ogType={isPost ? 'article' : 'website'} jsonLd={jsonLd}>
+  <main class="article">
+    <article>
+      {isPost && <p class="meta">{new Date(fm.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} · Quickdraw blog</p>}
+      <h1>{fm.title}</h1>
+      <slot />
+    </article>
+  </main>
+</Base>
+
+<style is:global>
+  .article { max-width: 760px; margin: 0 auto; padding: 48px 20px 0; }
+  .article .meta { color: var(--ink-soft); font-size: 14px; margin: 0 0 6px; }
+  .article h1 { font-size: clamp(30px, 4.6vw, 40px); line-height: 1.15; letter-spacing: -0.015em; margin: 0 0 22px; }
+  .article h2 { font-size: 25px; margin: 40px 0 14px; letter-spacing: -0.01em; }
+  .article h3 { font-size: 19px; margin: 28px 0 10px; }
+  .article p, .article li { font-size: 16.5px; color: #2e2c27; }
+  .article pre { margin: 18px 0; }
+  .article table { border-collapse: collapse; width: 100%; font-size: 15px; margin: 18px 0; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); }
+  .article th, .article td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+  .article blockquote { border-left: 3px solid var(--accent); margin: 18px 0; padding: 4px 0 4px 18px; color: var(--ink-soft); }
+  .article img { max-width: 100%; border-radius: var(--radius); }
+</style>
