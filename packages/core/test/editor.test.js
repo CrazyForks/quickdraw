@@ -352,8 +352,8 @@ describe('grid', () => {
     // two passes: minor then major, the majors darker
     const strokes = ctx.calls.filter((c) => c[0] === 'stroke')
     expect(strokes.length).toBe(2)
-    expect(strokes[0][1]).toBe(editor.theme.grid.minor)
-    expect(strokes[1][1]).toBe(editor.theme.grid.major)
+    expect(strokes[0][1]).toBe(editor.theme.grid.line.minor)
+    expect(strokes[1][1]).toBe(editor.theme.grid.line.major)
   })
 
   it('doubles the step as you zoom out, halves it as you zoom in', () => {
@@ -377,9 +377,13 @@ describe('grid', () => {
     const arcs = ctx.calls.filter((c) => c[0] === 'arc')
     expect(arcs.length).toBe(11 * 6)
     const radii = [...new Set(arcs.map((c) => c[3]))].sort((a, b) => a - b)
-    expect(radii).toEqual([1.15, 1.9])
+    expect(radii).toEqual([1.6, 2.3])
+    // dots carry less ink than rules, so they run darker to read as calm
+    const fills = ctx.calls.filter((c) => c[0] === 'fill')
+    expect(fills[0][1]).toBe(editor.theme.grid.dot.minor)
+    expect(fills[1][1]).toBe(editor.theme.grid.dot.major)
     // majors are where both axes land on a fifth: (0,0), (200,0), (400,0), (0,200)...
-    const big = arcs.filter((c) => c[3] === 1.9).map((c) => `${c[1]},${c[2]}`)
+    const big = arcs.filter((c) => c[3] === 2.3).map((c) => `${c[1]},${c[2]}`)
     expect(big.sort()).toEqual(['0,0', '0,200', '200,0', '200,200', '400,0', '400,200'])
   })
 

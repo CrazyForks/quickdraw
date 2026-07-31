@@ -53,9 +53,14 @@ export const THEMES = {
     selectionFill: 'rgba(47, 128, 236, 0.07)',
     handleFill: '#ffffff',
     scribble: '#f2555a', // the laser pointer
-    // the optional grid sits just above the paper: minor rules whisper, the
-    // every-fifth majors give the eye something to measure against
-    grid: { minor: 'rgba(60, 50, 30, 0.13)', major: 'rgba(60, 50, 30, 0.26)' },
+    // The optional grid sits just above the paper: minor marks whisper, the
+    // every-fifth majors give the eye something to measure against. Dots carry
+    // far less ink than a rule of the same weight, so they run darker to land
+    // at the same visual quiet.
+    grid: {
+      line: { minor: 'rgba(60, 50, 30, 0.13)', major: 'rgba(60, 50, 30, 0.26)' },
+      dot: { minor: 'rgba(60, 50, 30, 0.42)', major: 'rgba(60, 50, 30, 0.7)' },
+    },
   },
   dark: {
     id: 'dark',
@@ -66,7 +71,10 @@ export const THEMES = {
     selectionFill: 'rgba(79, 150, 246, 0.09)',
     handleFill: '#26231c',
     scribble: '#f2555a',
-    grid: { minor: 'rgba(255, 246, 224, 0.10)', major: 'rgba(255, 246, 224, 0.20)' },
+    grid: {
+      line: { minor: 'rgba(255, 246, 224, 0.10)', major: 'rgba(255, 246, 224, 0.20)' },
+      dot: { minor: 'rgba(255, 246, 224, 0.30)', major: 'rgba(255, 246, 224, 0.52)' },
+    },
   },
 }
 

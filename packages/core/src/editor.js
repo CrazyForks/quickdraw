@@ -1508,8 +1508,9 @@ export class Editor {
   // level fades in as you zoom rather than popping into place.
   // W/H are device px; the ctx must be untransformed.
   _drawGrid(ctx, cam, W, H, dpr) {
-    const g = this.theme.grid
-    if (this.grid === 'none' || !g || !(cam.z > 0)) return
+    if (this.grid === 'none' || !(cam.z > 0)) return
+    const g = this.theme.grid?.[this.grid === 'dots' ? 'dot' : 'line']
+    if (!g) return
     let step = GRID_STEP
     while (step * cam.z < 18) step *= 2
     while (step * cam.z > 72) step /= 2
@@ -1538,7 +1539,7 @@ export class Editor {
       }
     } else {
       for (const major of [false, true]) {
-        const r = (major ? 1.9 : 1.15) * dpr
+        const r = (major ? 2.3 : 1.6) * dpr
         ctx.beginPath()
         for (const [y, my] of rows) {
           for (const [x, mx] of cols) {

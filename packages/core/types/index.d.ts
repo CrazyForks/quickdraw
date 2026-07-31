@@ -81,7 +81,10 @@ export interface Theme {
   selectionFill: string
   handleFill: string
   scribble: string
-  grid: { minor: string; major: string }
+  grid: {
+    line: { minor: string; major: string }
+    dot: { minor: string; major: string }
+  }
 }
 
 export interface ScribbleStroke {

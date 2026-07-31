@@ -35,12 +35,18 @@ describe('palette', () => {
     for (const f of Object.values(FONTS)) expect(typeof f).toBe('string')
   })
 
-  it('every theme carries a two-weight grid ink', () => {
+  it('every theme carries two-weight grid ink for rules and dots', () => {
     expect(GRID_IDS).toEqual(['none', 'lines', 'dots'])
+    const alpha = (c) => parseFloat(c.split(',').pop())
     for (const theme of Object.values(THEMES)) {
-      expect(theme.grid.minor, theme.id).toMatch(/^rgba\(/)
-      expect(theme.grid.major, theme.id).toMatch(/^rgba\(/)
-      expect(theme.grid.minor).not.toBe(theme.grid.major)
+      for (const kind of ['line', 'dot']) {
+        const g = theme.grid[kind]
+        expect(g.minor, `${theme.id}/${kind}`).toMatch(/^rgba\(/)
+        expect(g.major, `${theme.id}/${kind}`).toMatch(/^rgba\(/)
+        expect(alpha(g.major)).toBeGreaterThan(alpha(g.minor))
+      }
+      // a dot lays down less ink than a rule, so it has to run darker
+      expect(alpha(theme.grid.dot.minor)).toBeGreaterThan(alpha(theme.grid.line.minor))
     }
   })
 })
