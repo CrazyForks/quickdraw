@@ -14,7 +14,8 @@
     "test:watch": "vitest",
     "build": "npm run build --workspace=@tryquickdraw/react-native",
     "dev": "npm run dev --workspace=quickdraw-react-demo",
-    "typecheck": "tsc -p tsconfig.json"
+    "typecheck": "tsc -p tsconfig.json",
+    "publish:all": "npm publish --workspace=@tryquickdraw/core --access public && npm publish --workspace=@tryquickdraw/react --access public && npm publish --workspace=@tryquickdraw/react-native --access public"
   },
   "devDependencies": {
     "@testing-library/react": "^16.3.0",
