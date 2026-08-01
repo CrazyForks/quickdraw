@@ -31,6 +31,82 @@
     .qd-app-logo:hover { background: rgba(28, 27, 24, 0.06); }
     .qd-app-logo.dark { color: #f4f2ea; }
     .qd-app-logo.dark:hover { background: rgba(244, 242, 234, 0.08); }
+
+    /* File bar — files menu, new file, and the current file's name. */
+    .qd-filebar {
+      position: fixed; left: 148px; top: 12px; z-index: 60;
+      display: flex; align-items: center; gap: 2px;
+      font: 500 14px/1 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      color: #1c1b18;
+    }
+    .qd-filebar::before {
+      content: ''; width: 1px; height: 18px; background: rgba(28, 27, 24, 0.16);
+      margin-right: 8px;
+    }
+    .qd-file-btn {
+      appearance: none; border: none; background: transparent; color: inherit;
+      display: flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: 9px; cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 140ms ease;
+    }
+    .qd-file-btn svg { width: 17px; height: 17px; display: block; }
+    .qd-file-btn:hover { background: rgba(28, 27, 24, 0.07); }
+    .qd-file-name {
+      appearance: none; border: none; background: transparent; color: inherit;
+      font: inherit; font-weight: 600; letter-spacing: -0.005em;
+      margin-left: 4px; padding: 7px 10px; border-radius: 9px;
+      min-width: 40px; max-width: 200px; cursor: text;
+      transition: background 140ms ease;
+    }
+    .qd-file-name:hover { background: rgba(28, 27, 24, 0.06); }
+    .qd-file-name:focus { outline: none; background: rgba(28, 27, 24, 0.08); }
+    .qd-files-menu {
+      position: fixed; left: 156px; top: 52px; z-index: 70;
+      min-width: 230px; max-height: 60vh; overflow-y: auto;
+      background: #fff; color: #1c1b18;
+      border: 1px solid rgba(28, 27, 24, 0.12); border-radius: 12px;
+      box-shadow: 0 14px 40px -12px rgba(28, 27, 24, 0.3);
+      padding: 6px;
+    }
+    .qd-files-menu[hidden] { display: none; }
+    .qd-files-menu .qd-file-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 10px; border-radius: 8px; cursor: pointer;
+      font: 500 14px/1.2 inherit;
+    }
+    .qd-file-row:hover { background: rgba(28, 27, 24, 0.06); }
+    .qd-file-row .name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .qd-file-row.current .name { font-weight: 700; }
+    .qd-file-row .dot { width: 6px; height: 6px; border-radius: 999px; background: transparent; flex: none; }
+    .qd-file-row.current .dot { background: #2f6fed; }
+    .qd-file-row .del {
+      appearance: none; border: none; background: transparent; cursor: pointer;
+      color: rgba(28, 27, 24, 0.4); border-radius: 6px; flex: none;
+      width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;
+      font: 600 14px/1 inherit; padding: 0;
+    }
+    .qd-file-row .del:hover { color: #c0392b; background: rgba(192, 57, 43, 0.1); }
+
+    /* Dark theme follows the board, same as the logo. */
+    .dark .qd-filebar, .qd-filebar.dark { color: #f4f2ea; }
+    .qd-filebar.dark::before { background: rgba(244, 242, 234, 0.22); }
+    .qd-filebar.dark .qd-file-btn:hover,
+    .qd-filebar.dark .qd-file-name:hover { background: rgba(244, 242, 234, 0.09); }
+    .qd-filebar.dark .qd-file-name:focus { background: rgba(244, 242, 234, 0.12); }
+    .qd-files-menu.dark {
+      background: #262624; color: #f4f2ea; border-color: rgba(244, 242, 234, 0.14);
+      box-shadow: 0 14px 40px -12px rgba(0, 0, 0, 0.6);
+    }
+    .qd-files-menu.dark .qd-file-row:hover { background: rgba(244, 242, 234, 0.08); }
+    .qd-files-menu.dark .qd-file-row .del { color: rgba(244, 242, 234, 0.45); }
+    .qd-files-menu.dark .qd-file-row .del:hover { color: #ff7b6b; background: rgba(255, 123, 107, 0.14); }
+
+    @media (max-width: 560px) {
+      .qd-filebar { left: 128px; }
+      .qd-file-name { max-width: 110px; }
+      .qd-files-menu { left: 14px; }
+    }
   </style>
 </head>
 <body>
@@ -42,6 +118,20 @@
     </svg>
     Quickdraw
   </a>
+  <div class="qd-filebar" id="filebar">
+    <button class="qd-file-btn" id="files-btn" type="button" title="Your files" aria-label="Your files" aria-haspopup="true" aria-expanded="false">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M2.5 5.5 A1.8 1.8 0 0 1 4.3 3.7 H7.4 L9.2 5.6 H15.7 A1.8 1.8 0 0 1 17.5 7.4 V14.5 A1.8 1.8 0 0 1 15.7 16.3 H4.3 A1.8 1.8 0 0 1 2.5 14.5 Z"/>
+      </svg>
+    </button>
+    <button class="qd-file-btn" id="new-file-btn" type="button" title="New file" aria-label="New file">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true">
+        <path d="M10 4.5 V15.5 M4.5 10 H15.5"/>
+      </svg>
+    </button>
+    <input class="qd-file-name" id="file-name" type="text" value="Untitled" spellcheck="false" autocomplete="off" aria-label="File name" />
+  </div>
+  <div class="qd-files-menu" id="files-menu" hidden role="menu" aria-label="Files"></div>
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>
