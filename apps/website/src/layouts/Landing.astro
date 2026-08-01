@@ -33,4 +33,17 @@ const { title, description, jsonLd = null } = Astro.props
   .landing .fine-print { font-size: 13px; color: var(--ink-soft); margin-top: 12px; }
   .landing .more-links { color: var(--ink-soft); font-size: 15px; margin-top: 14px; }
   .landing pre { margin: 0; }
+
+  @media (max-width: 640px) {
+    .landing section { margin-top: 56px; }
+    .landing .page-head { margin-top: 30px; }
+    .landing h1 { font-size: clamp(29px, 8.4vw, 38px); line-height: 1.14; }
+    .landing .lede { font-size: 16px; margin-bottom: 24px; }
+  }
+  /* Same as the home hero: below ~460px the buttons stack full-bleed
+     instead of wrapping to ragged widths. */
+  @media (max-width: 460px) {
+    .landing .actions { display: grid; grid-template-columns: 1fr; gap: 10px; }
+    .landing .btn { padding: 13px 20px; text-align: center; font-size: 16px; }
+  }
 </style>

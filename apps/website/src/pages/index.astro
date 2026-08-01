@@ -87,7 +87,7 @@ const jsonLd = {
         </div>
         <a class="install" href="https://www.npmjs.com/package/@quickdrawjs/react" rel="noopener" title="View @quickdrawjs/react on npm">
           <span class="npm-mark" aria-hidden="true">npm</span>
-          <span class="install-cmd"><span class="prompt">$</span> npm install @quickdrawjs/react</span>
+          <span class="install-cmd"><span class="prompt">$</span> <span class="cmd-long">npm install @quickdrawjs/react</span><span class="cmd-short">npm i @quickdrawjs/react</span></span>
           <span class="install-go" aria-hidden="true">→</span>
         </a>
       </div>
@@ -338,7 +338,8 @@ createQuickdraw({
   }
   .install:hover { text-decoration: none; border-color: var(--ink-soft); background: #fff; }
   .install:hover .install-go { transform: translateX(3px); color: var(--accent-ink); }
-  .install-cmd { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .install-cmd { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; }
+  .cmd-short { display: none; }
   .install .prompt { color: var(--accent); user-select: none; margin-right: 6px; }
   .install-go { transition: transform 140ms ease; color: var(--ink-soft); }
   .npm-mark {
@@ -435,8 +436,40 @@ createQuickdraw({
   .cta-final .actions { justify-content: center; }
 
   @media (max-width: 880px) {
-    .hero { grid-template-columns: 1fr; gap: 32px; }
+    .hero { grid-template-columns: 1fr; gap: 34px; margin-top: 46px; }
     #hero-board { height: 380px; }
-    h1 { font-size: clamp(32px, 9vw, 42px); }
+    h1 { font-size: clamp(32px, 6.2vw, 44px); }
+    .lede { max-width: 52ch; }
+  }
+
+  @media (max-width: 640px) {
+    section { margin-top: 68px; }
+    .hero { margin-top: 30px; gap: 26px; }
+    .eyebrow { font-size: 11.5px; letter-spacing: 0.09em; margin: 0 0 12px; }
+    h1 { font-size: clamp(29px, 8.4vw, 38px); line-height: 1.14; margin-bottom: 14px; }
+    .scribble { background-size: 100% 7px; padding-bottom: 6px; }
+    .lede { font-size: 16px; max-width: none; margin-bottom: 24px; }
+    .install { margin-top: 20px; }
+    #hero-board { height: clamp(300px, 52vh, 400px); }
+    .board-hint { margin-top: 10px; }
+    .support-card { padding: 42px 22px 40px; }
+  }
+
+  /* Below ~460px the two buttons no longer sit side by side without
+     wrapping to ragged widths — stack them full-bleed instead. */
+  @media (max-width: 460px) {
+    .actions { display: grid; grid-template-columns: 1fr; gap: 10px; }
+    .btn { padding: 13px 20px; text-align: center; font-size: 16px; }
+    .btn.github { justify-content: center; }
+    .install {
+      display: flex; width: 100%;
+      padding: 11px 13px; gap: 10px; font-size: 12.5px;
+    }
+    .install-go { margin-left: auto; }
+  }
+
+  @media (max-width: 400px) {
+    .cmd-long { display: none; }
+    .cmd-short { display: inline; }
   }
 </style>
