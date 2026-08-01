@@ -2,7 +2,7 @@
   "name": "quickdraw-app",
   "private": true,
   "version": "0.0.0",
-  "description": "app.tryquickdraw.com — the hosted Quickdraw whiteboard.",
+  "description": "app.tryquickdraw.com \u2014 the hosted Quickdraw whiteboard.",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@quickdrawjs/core": "0.1.0"
+    "@quickdrawjs/core": "0.1.1"
   },
   "devDependencies": {
     "vite": "^6.3.0"

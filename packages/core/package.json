@@ -1,7 +1,7 @@
 {
   "name": "@quickdrawjs/core",
-  "version": "0.1.0",
-  "description": "Framework-free infinite-canvas whiteboard engine — the heart of Quickdraw, the MIT-licensed drawing SDK.",
+  "version": "0.1.1",
+  "description": "Framework-free infinite-canvas whiteboard engine \u2014 the heart of Quickdraw, the MIT-licensed drawing SDK.",
   "type": "module",
   "main": "./src/index.js",
   "module": "./src/index.js",

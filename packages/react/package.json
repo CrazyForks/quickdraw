@@ -1,7 +1,7 @@
 {
   "name": "@quickdrawjs/react",
-  "version": "0.1.0",
-  "description": "React component for Quickdraw — the MIT-licensed infinite-canvas whiteboard SDK.",
+  "version": "0.1.1",
+  "description": "React component for Quickdraw \u2014 the MIT-licensed infinite-canvas whiteboard SDK.",
   "type": "module",
   "main": "./src/index.js",
   "module": "./src/index.js",
@@ -28,7 +28,7 @@
     "tldraw-alternative"
   ],
   "dependencies": {
-    "@quickdrawjs/core": "0.1.0"
+    "@quickdrawjs/core": "0.1.1"
   },
   "peerDependencies": {
     "react": ">=17"

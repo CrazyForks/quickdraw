@@ -39,6 +39,8 @@ describe('bounds', () => {
     expect(localBounds(line)).toEqual({ x: -40, y: 0, w: 40, h: 30 })
     const arrow = { ...line, type: 'arrow', props: { ...line.props, bend: 10 } }
     expect(localBounds(arrow).w).toBeGreaterThan(40)
+    const bentLine = { ...line, props: { ...line.props, bend: 10 } }
+    expect(localBounds(bentLine).w).toBeGreaterThan(40)
   })
 })
 

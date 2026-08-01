@@ -22,6 +22,15 @@ const DEFAULT_STYLES = { color: 'black', size: 'm', dash: 'draw', fill: 'none', 
 
 export const TOOLS = ['select', 'hand', 'draw', 'highlight', 'eraser', 'laser', 'arrow', 'line', 'geo', 'text', 'note']
 
+// local position of the bend handle: the curve's midpoint (chord midpoint
+// when straight — sampleLinePts collapses to the two endpoints at bend 0)
+const bendMidpoint = (pr) => {
+  if (!pr.bend) return { x: pr.dx / 2, y: pr.dy / 2 }
+  const mid = sampleLinePts(pr, pr.bend)
+  const mi = Math.floor(mid.length / 4) * 2
+  return { x: mid[mi], y: mid[mi + 1] }
+}
+
 export class Editor {
   constructor({ container, store, theme = 'light', grid = 'none', readonly = false, camera, styles, geoKind } = {}) {
     this.container = container
@@ -772,7 +781,7 @@ export class Editor {
     this.store.put({
       id, typeName: 'shape', type, x: p.x, y: p.y, rot: 0, z: this.store.maxZ() + 1,
       props: {
-        dx: 0.01, dy: 0.01, ...(type === 'arrow' ? { bend: 0 } : {}),
+        dx: 0.01, dy: 0.01, bend: 0,
         color: this.styles.color, size: this.styles.size,
         dash: this.styles.dash === 'draw' ? 'solid' : this.styles.dash,
       },
@@ -1146,11 +1155,8 @@ export class Editor {
         { which: 'start', x: one.x, y: one.y },
         { which: 'end', x: one.x + pr.dx, y: one.y + pr.dy },
       ]
-      if (one.type === 'arrow') {
-        const mid = sampleLinePts(pr, pr.bend || 0)
-        const mi = Math.floor(mid.length / 4) * 2
-        pts.push({ which: 'bend', x: one.x + mid[mi], y: one.y + mid[mi + 1] })
-      }
+      const bm = bendMidpoint(pr)
+      pts.push({ which: 'bend', x: one.x + bm.x, y: one.y + bm.y })
       for (const h of pts) {
         const s = this.pageToScreen(h.x, h.y)
         if (Math.hypot(s.x - sx, s.y - sy) <= HANDLE + 3) return { kind: 'handle', which: h.which, id: one.id }
@@ -1601,11 +1607,8 @@ export class Editor {
           this.pageToScreen(one.x, one.y),
           this.pageToScreen(one.x + pr.dx, one.y + pr.dy),
         ]
-        if (one.type === 'arrow') {
-          const mid = sampleLinePts(pr, pr.bend || 0)
-          const mi = Math.floor(mid.length / 4) * 2
-          hs.push(this.pageToScreen(one.x + mid[mi], one.y + mid[mi + 1]))
-        }
+        const bm = bendMidpoint(pr)
+        hs.push(this.pageToScreen(one.x + bm.x, one.y + bm.y))
         for (const p2 of hs) {
           ctx.beginPath()
           ctx.arc(p2.x, p2.y, 5, 0, Math.PI * 2)

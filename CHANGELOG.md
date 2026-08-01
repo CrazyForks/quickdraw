@@ -4,6 +4,14 @@ All notable changes to the `@quickdrawjs/*` packages are documented here.
 The project follows [semver](https://semver.org); the three packages are
 versioned in lockstep.
 
+## 0.1.1 — 2026-08-01
+
+- Lines are now bendable: drag the new midpoint anchor to curve a line,
+  exactly like arrows. Lines and arrows both show three anchors
+  (start, midpoint, end).
+- Fixed: straight arrows could not be bent — the midpoint anchor
+  collapsed onto the end anchor when `bend` was 0, making it ungrabbable.
+
 ## 0.1.0 — 2026-08-01
 
 First public release.

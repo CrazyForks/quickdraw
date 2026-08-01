@@ -35,7 +35,7 @@ export function localBounds(shape) {
     }
     case 'arrow':
     case 'line': {
-      const bend = shape.type === 'arrow' ? p.bend || 0 : 0
+      const bend = p.bend || 0
       const x = Math.min(0, p.dx) - Math.abs(bend)
       const y = Math.min(0, p.dy) - Math.abs(bend)
       return { x, y, w: Math.abs(p.dx) + Math.abs(bend) * 2, h: Math.abs(p.dy) + Math.abs(bend) * 2 }
@@ -378,7 +378,7 @@ export function drawShape(ctx, shape, opts) {
       const w = SIZES[p.size]
       ctx.strokeStyle = col.stroke
       strokeStyled(ctx, p.dash, w)
-      const bend = shape.type === 'arrow' ? p.bend || 0 : 0
+      const bend = p.bend || 0
       const len = Math.hypot(p.dx, p.dy) || 1
       const nx = -p.dy / len, ny = p.dx / len
       const cx2 = p.dx / 2 + nx * bend * 2 // control point: bend*2 puts the CURVE at bend offset
@@ -499,8 +499,7 @@ export function hitShape(shape, px, py, tol, store) {
     }
     case 'arrow':
     case 'line': {
-      const bend = shape.type === 'arrow' ? p.bend || 0 : 0
-      const pts = sampleLinePts(p, bend)
+      const pts = sampleLinePts(p, p.bend || 0)
       return distToPolyline(l.x, l.y, pts, 2) <= tol + SIZES[p.size]
     }
     case 'text':
@@ -549,7 +548,7 @@ export function marqueeHits(shape, rect) {
   const local = { x: rect.x - shape.x, y: rect.y - shape.y, w: rect.w, h: rect.h }
   let pts, stride = 2
   if (shape.type === 'draw' || shape.type === 'highlight') { pts = p.pts; stride = 3 }
-  else if (shape.type === 'arrow' || shape.type === 'line') pts = sampleLinePts(p, shape.type === 'arrow' ? p.bend || 0 : 0)
+  else if (shape.type === 'arrow' || shape.type === 'line') pts = sampleLinePts(p, p.bend || 0)
   else if (shape.type === 'geo') { pts = geoPolygon(p.geo, p.w, p.h); if (pointInPolygon(local.x + local.w / 2, local.y + local.h / 2, pts)) return true }
   if (!pts) return true
   const n = Math.floor(pts.length / stride)
