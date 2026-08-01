@@ -14,7 +14,7 @@ alternative to tldraw with no license fee.
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/demo-dark.png">
   <source media="(prefers-color-scheme: light)" srcset="docs/demo-light.png">
-  <img src="docs/demo-light.png" alt="A Quickdraw board sketching a search request path: hand-drawn boxes for browser, edge cache, api and postgres, bendable arrows for the cache hit and miss, a dashed write-through arc, a sticky note, a highlighted latency label, and red pen annotations circling the slow node" width="100%">
+  <img src="docs/demo-light.png" alt="A Quickdraw board explaining Quickdraw: hand-drawn color-filled boxes for your app, the editor and store, the canvas, the JSON diff and your backend, joined by bendable arrows, with a sticky note, a highlighted &quot;MIT, no license key&quot; line, and a red pen note pointing at the removable watermark" width="100%">
 </picture>
 
 <sup>The hosted app at <a href="https://app.tryquickdraw.com">app.tryquickdraw.com</a> — the same board <code>createQuickdraw()</code> drops into your page.</sup>
