@@ -20,7 +20,7 @@ appreciate the credit.
 
 ## What you get
 
-A complete whiteboard, not a toolkit you assemble:
+A simple, joyful drawing experience:
 
 - **Pressure ink** — a freehand pen whose width breathes with stylus pressure,
   or with velocity for mouse users; strokes taper like a real pen
