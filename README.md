@@ -11,6 +11,10 @@ alternative to tldraw with no license fee.
 
 **[Website](https://tryquickdraw.com)** · **[Try the app](https://app.tryquickdraw.com)** · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
 
+<img src="docs/demo.png" alt="A Quickdraw board: hand-drawn shapes with labels, bendable arrows, a sticky note, pressure-sensitive ink, and a highlighter" width="100%">
+
+<sup>Exported straight out of the board with `editor.exportImage()` — the grid travels with the paper.</sup>
+
 Quickdraw exists because embedding a whiteboard shouldn't cost thousands of
 dollars a year. Quickdraw is MIT: no license key, no fees, no strings. A small
 "Made with Quickdraw" badge sits in the board's corner by default; keeping it
