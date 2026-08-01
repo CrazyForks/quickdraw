@@ -1,4 +1,4 @@
-# @tryquickdraw/react
+# @quickdrawjs/react
 
 React bindings for [Quickdraw](https://tryquickdraw.com) — the MIT-licensed
 infinite-canvas whiteboard SDK.
@@ -6,14 +6,14 @@ infinite-canvas whiteboard SDK.
 ## Install
 
 ```bash
-npm install @tryquickdraw/react
+npm install @quickdrawjs/react
 ```
 
 ## Quick start
 
 ```jsx
-import { Quickdraw } from '@tryquickdraw/react'
-import '@tryquickdraw/core/quickdraw.css'
+import { Quickdraw } from '@quickdrawjs/react'
+import '@quickdrawjs/core/quickdraw.css'
 
 export default function App() {
   return (
@@ -65,7 +65,7 @@ removes it.
 
 ## Imperative access
 
-Everything in [`@tryquickdraw/core`](https://www.npmjs.com/package/@tryquickdraw/core)
+Everything in [`@quickdrawjs/core`](https://www.npmjs.com/package/@quickdrawjs/core)
 is re-exported, and the full editor is reachable through a ref or `onMount`:
 
 ```jsx

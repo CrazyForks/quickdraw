@@ -32,7 +32,7 @@ const jsonLd = {
           name: 'Is there an Excalidraw for React Native?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Excalidraw does not ship a React Native package. @tryquickdraw/react-native wraps the Quickdraw engine in a WebView with a typed bridge, Apple Pencil pressure, and palm rejection.',
+            text: 'Excalidraw does not ship a React Native package. @quickdrawjs/react-native wraps the Quickdraw engine in a WebView with a typed bridge, Apple Pencil pressure, and palm rejection.',
           },
         },
         {
@@ -94,7 +94,7 @@ const jsonLd = {
     <h2>Try it in a plain HTML page</h2>
     <pre><code>{`<div id="board" style="position: fixed; inset: 0"></div>
 <script type="module">
-  import { createQuickdraw } from 'https://esm.sh/@tryquickdraw/core'
+  import { createQuickdraw } from 'https://esm.sh/@quickdrawjs/core'
   createQuickdraw({ container: document.getElementById('board') })
 </script>`}</code></pre>
     <p class="more-links">

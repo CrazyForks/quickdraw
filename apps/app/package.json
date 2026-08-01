@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tryquickdraw/core": "0.1.0"
+    "@quickdrawjs/core": "0.1.0"
   },
   "devDependencies": {
     "vite": "^6.3.0"

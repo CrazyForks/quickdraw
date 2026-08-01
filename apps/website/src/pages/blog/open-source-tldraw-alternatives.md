@@ -49,9 +49,9 @@ whiteboard SDK built to be embedded. The core engine is plain ESM with zero
 runtime dependencies (~46 kB unpacked), and the same engine ships as three
 packages:
 
-- `@tryquickdraw/core` — any web page, no framework, no build step
-- `@tryquickdraw/react` — a `<Quickdraw />` component with an imperative ref
-- `@tryquickdraw/react-native` — a WebView component with a typed bridge,
+- `@quickdrawjs/core` — any web page, no framework, no build step
+- `@quickdrawjs/react` — a `<Quickdraw />` component with an imperative ref
+- `@quickdrawjs/react-native` — a WebView component with a typed bridge,
   Apple Pencil pressure, and palm rejection
 
 You get pressure-sensitive ink, shapes with a hand-drawn wobble, arrows,

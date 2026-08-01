@@ -49,7 +49,7 @@ corner of embedded boards is.
 If you're a developer and want this canvas inside your own product:
 
 ```bash
-npm install @tryquickdraw/react
+npm install @quickdrawjs/react
 ```
 
 The [docs](/docs/) take it from there, and the whole thing is

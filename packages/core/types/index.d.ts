@@ -1,4 +1,4 @@
-// Type declarations for @tryquickdraw/core.
+// Type declarations for @quickdrawjs/core.
 // The engine itself is dependency-free ESM JavaScript; these types describe
 // its public API.
 

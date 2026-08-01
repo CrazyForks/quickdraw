@@ -92,7 +92,7 @@ everything is MIT on GitHub.
   Excalidraw aesthetic fits:** Excalidraw.
 - **Want MIT + a lightweight embed, plain-JS/Vue/Svelte support, or React
   Native:** [Quickdraw](https://tryquickdraw.com) — `npm install
-  @tryquickdraw/react` and you'll know in five minutes.
+  @quickdrawjs/react` and you'll know in five minutes.
 
 Corrections welcome — licensing and features change, and we'd rather this
 page be right than flattering:

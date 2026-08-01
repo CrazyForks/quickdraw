@@ -1,25 +1,25 @@
-# @tryquickdraw/core
+# @quickdrawjs/core
 
 The framework-free heart of [Quickdraw](https://tryquickdraw.com) — an MIT-licensed
 infinite-canvas whiteboard engine. Zero dependencies, zero build step: plain ESM
 that runs in any modern browser.
 
 If you're using React or React Native, you probably want
-[`@tryquickdraw/react`](https://www.npmjs.com/package/@tryquickdraw/react) or
-[`@tryquickdraw/react-native`](https://www.npmjs.com/package/@tryquickdraw/react-native)
+[`@quickdrawjs/react`](https://www.npmjs.com/package/@quickdrawjs/react) or
+[`@quickdrawjs/react-native`](https://www.npmjs.com/package/@quickdrawjs/react-native)
 instead — they wrap this engine.
 
 ## Install
 
 ```bash
-npm install @tryquickdraw/core
+npm install @quickdrawjs/core
 ```
 
 ## Quick start
 
 ```js
-import { createQuickdraw } from '@tryquickdraw/core'
-import '@tryquickdraw/core/quickdraw.css'
+import { createQuickdraw } from '@quickdrawjs/core'
+import '@quickdrawjs/core/quickdraw.css'
 
 const board = createQuickdraw({
   container: document.getElementById('board'),
@@ -75,8 +75,8 @@ step, majors every fifth) and travels into PNG exports that keep the paper.
 editor bare and bring your own chrome:
 
 ```js
-import { Editor } from '@tryquickdraw/core'
-import '@tryquickdraw/core/quickdraw.css'
+import { Editor } from '@quickdrawjs/core'
+import '@quickdrawjs/core/quickdraw.css'
 
 const editor = new Editor({ container, theme: 'dark', grid: 'dots' })
 editor.setTool('draw')

@@ -1,5 +1,5 @@
 {
-  "name": "@tryquickdraw/core",
+  "name": "@quickdrawjs/core",
   "version": "0.1.0",
   "description": "Framework-free infinite-canvas whiteboard engine — the heart of Quickdraw, the MIT-licensed drawing SDK.",
   "type": "module",

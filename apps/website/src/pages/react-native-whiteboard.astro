@@ -23,7 +23,7 @@ const jsonLd = {
           name: 'How do I add a whiteboard to a React Native app?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Install @tryquickdraw/react-native and react-native-webview, then render <Quickdraw style={{ flex: 1 }} />. The engine ships inside the package as a self-contained HTML page — no network needed, works offline.',
+            text: 'Install @quickdrawjs/react-native and react-native-webview, then render <Quickdraw style={{ flex: 1 }} />. The engine ships inside the package as a self-contained HTML page — no network needed, works offline.',
           },
         },
         {
@@ -63,9 +63,9 @@ const jsonLd = {
 
   <section>
     <h2>The whole integration</h2>
-    <pre><code>{`npm install @tryquickdraw/react-native react-native-webview
+    <pre><code>{`npm install @quickdrawjs/react-native react-native-webview
 
-import { Quickdraw } from '@tryquickdraw/react-native'
+import { Quickdraw } from '@quickdrawjs/react-native'
 
 <Quickdraw
   ref={board}

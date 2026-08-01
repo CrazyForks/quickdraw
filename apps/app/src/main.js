@@ -1,5 +1,5 @@
-import { createQuickdraw } from '@tryquickdraw/core'
-import '@tryquickdraw/core/quickdraw.css'
+import { createQuickdraw } from '@quickdrawjs/core'
+import '@quickdrawjs/core/quickdraw.css'
 
 const DOC_KEY = 'quickdraw-app-doc'
 const THEME_KEY = 'quickdraw-app-theme'

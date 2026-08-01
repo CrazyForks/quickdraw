@@ -123,5 +123,5 @@ not build the rest of the whiteboard (undo, selection, styles, export...),
 that's the [point of the SDK](/docs/):
 
 ```bash
-npm install @tryquickdraw/core
+npm install @quickdrawjs/core
 ```

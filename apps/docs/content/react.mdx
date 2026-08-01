@@ -6,17 +6,17 @@ description: The <Quickdraw /> React component — props, callbacks, refs, and c
 # React
 
 ```sh
-npm install @tryquickdraw/react
+npm install @quickdrawjs/react
 ```
 
-The package re-exports everything from `@tryquickdraw/core`, so one import
+The package re-exports everything from `@quickdrawjs/core`, so one import
 gives you the component *and* the engine (`Store`, `Editor`, diff helpers).
 
 ## Basic usage
 
 ```jsx
-import { Quickdraw } from '@tryquickdraw/react'
-import '@tryquickdraw/core/quickdraw.css'
+import { Quickdraw } from '@quickdrawjs/react'
+import '@quickdrawjs/core/quickdraw.css'
 
 export default function Board() {
   return (
@@ -90,7 +90,7 @@ Pass your own `Store` when the document outlives the component — shared
 between views, preloaded before render, or synced with peers:
 
 ```jsx
-import { Quickdraw, useQuickdrawStore } from '@tryquickdraw/react'
+import { Quickdraw, useQuickdrawStore } from '@quickdrawjs/react'
 
 function App({ savedSnapshot }) {
   const store = useQuickdrawStore(savedSnapshot) // stable across renders

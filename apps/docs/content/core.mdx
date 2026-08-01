@@ -6,7 +6,7 @@ description: Use the framework-free Quickdraw core in any web page — zero depe
 # Plain JavaScript
 
 ```sh
-npm install @tryquickdraw/core
+npm install @quickdrawjs/core
 ```
 
 The core is dependency-free ESM. It doesn't need React, a bundler, or a
@@ -15,7 +15,7 @@ build step — any modern browser runs it as-is:
 ```html
 <div id="board" style="position: fixed; inset: 0"></div>
 <script type="module">
-  import { createQuickdraw } from '@tryquickdraw/core'
+  import { createQuickdraw } from '@quickdrawjs/core'
   // (or from a CDN like esm.sh while prototyping)
 
   const board = createQuickdraw({
@@ -26,7 +26,7 @@ build step — any modern browser runs it as-is:
 </script>
 ```
 
-Don't forget the stylesheet: `@tryquickdraw/core/quickdraw.css` (import it
+Don't forget the stylesheet: `@quickdrawjs/core/quickdraw.css` (import it
 from your bundler, or copy it into a `<link>` tag).
 
 ## `createQuickdraw(options)`

@@ -6,8 +6,8 @@
 //   RN -> page : window.__qdDispatch({ type, ... })
 //   page -> RN : window.ReactNativeWebView.postMessage(JSON.stringify({ type, ... }))
 
-import { createQuickdraw } from '@tryquickdraw/core'
-import '@tryquickdraw/core/quickdraw.css'
+import { createQuickdraw } from '@quickdrawjs/core'
+import '@quickdrawjs/core/quickdraw.css'
 
 const post = (msg) => {
   try {

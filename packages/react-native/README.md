@@ -1,4 +1,4 @@
-# @tryquickdraw/react-native
+# @quickdrawjs/react-native
 
 React Native bindings for [Quickdraw](https://tryquickdraw.com) — the
 MIT-licensed infinite-canvas whiteboard SDK.
@@ -12,7 +12,7 @@ tools, undo/redo and PNG export.
 ## Install
 
 ```bash
-npm install @tryquickdraw/react-native react-native-webview
+npm install @quickdrawjs/react-native react-native-webview
 ```
 
 (`react-native-webview` is a peer dependency; follow its install steps for
@@ -21,7 +21,7 @@ your RN / Expo setup. In Expo: `npx expo install react-native-webview`.)
 ## Quick start
 
 ```jsx
-import { Quickdraw } from '@tryquickdraw/react-native'
+import { Quickdraw } from '@quickdrawjs/react-native'
 
 export default function Board() {
   return <Quickdraw theme="light" grid="lines" style={{ flex: 1 }} />

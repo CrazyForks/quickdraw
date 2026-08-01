@@ -4,9 +4,9 @@
 import {
   createElement, forwardRef, useEffect, useImperativeHandle, useRef,
 } from 'react'
-import { Editor, Store, buildUI, buildWatermark } from '@tryquickdraw/core'
+import { Editor, Store, buildUI, buildWatermark } from '@quickdrawjs/core'
 
-export * from '@tryquickdraw/core'
+export * from '@quickdrawjs/core'
 
 /**
  * <Quickdraw /> — a complete whiteboard in a div.

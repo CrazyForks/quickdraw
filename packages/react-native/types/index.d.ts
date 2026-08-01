@@ -2,7 +2,7 @@ import * as React from 'react'
 import type {
   ColorId, DashId, Diff, DiffSource, FillId, FontId, GridId, SizeId, Snapshot, Styles,
   ThemeId, ToolId,
-} from '@tryquickdraw/core'
+} from '@quickdrawjs/core'
 
 /** The self-contained HTML page the WebView renders (engine + CSS inlined). */
 export const BOARD_HTML: string

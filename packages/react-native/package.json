@@ -1,5 +1,5 @@
 {
-  "name": "@tryquickdraw/react-native",
+  "name": "@quickdrawjs/react-native",
   "version": "0.1.0",
   "description": "React Native component for Quickdraw — the MIT-licensed infinite-canvas whiteboard SDK (WebView-based).",
   "type": "module",
@@ -35,7 +35,7 @@
     "tldraw-alternative"
   ],
   "dependencies": {
-    "@tryquickdraw/core": "0.1.0"
+    "@quickdrawjs/core": "0.1.0"
   },
   "devDependencies": {
     "esbuild": "^0.25.0"

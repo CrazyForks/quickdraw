@@ -16,16 +16,16 @@ whiteboard SDK.
 ## 1. Install
 
 ```bash
-npm install @tryquickdraw/react
+npm install @quickdrawjs/react
 ```
 
-That pulls in `@tryquickdraw/core` (the engine — zero dependencies of its own).
+That pulls in `@quickdrawjs/core` (the engine — zero dependencies of its own).
 
 ## 2. Render a board
 
 ```jsx
-import { Quickdraw } from '@tryquickdraw/react'
-import '@tryquickdraw/core/quickdraw.css'
+import { Quickdraw } from '@quickdrawjs/react'
+import '@quickdrawjs/core/quickdraw.css'
 
 export default function Board() {
   return (
@@ -51,8 +51,8 @@ The document is plain JSON. Save on change, restore on mount:
 
 ```jsx
 import { useRef } from 'react'
-import { Quickdraw } from '@tryquickdraw/react'
-import '@tryquickdraw/core/quickdraw.css'
+import { Quickdraw } from '@quickdrawjs/react'
+import '@quickdrawjs/core/quickdraw.css'
 
 export default function Board() {
   const ref = useRef(null)

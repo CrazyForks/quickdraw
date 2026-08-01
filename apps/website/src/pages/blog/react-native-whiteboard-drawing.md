@@ -42,18 +42,18 @@ hardware-accelerated, handles thousands of strokes, and — crucially — gets
 
 ## Or: install the package that solved them
 
-[`@tryquickdraw/react-native`](https://www.npmjs.com/package/@tryquickdraw/react-native)
+[`@quickdrawjs/react-native`](https://www.npmjs.com/package/@quickdrawjs/react-native)
 wraps the MIT-licensed [Quickdraw](https://tryquickdraw.com) engine in exactly
 this architecture. The engine ships *inside the package* as one
 self-contained HTML string — no network, works offline, no asset pipeline.
 
 ```bash
-npm install @tryquickdraw/react-native react-native-webview
+npm install @quickdrawjs/react-native react-native-webview
 ```
 
 ```jsx
 import { useRef } from 'react'
-import { Quickdraw } from '@tryquickdraw/react-native'
+import { Quickdraw } from '@quickdrawjs/react-native'
 
 export default function Board() {
   const board = useRef(null)

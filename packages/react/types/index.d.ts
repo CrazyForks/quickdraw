@@ -1,9 +1,9 @@
 import * as React from 'react'
 import type {
   Camera, Diff, DiffSource, Editor, BoardUI, GridId, Snapshot, Store, Styles, ThemeId,
-} from '@tryquickdraw/core'
+} from '@quickdrawjs/core'
 
-export * from '@tryquickdraw/core'
+export * from '@quickdrawjs/core'
 
 export interface QuickdrawRef {
   readonly editor: Editor | null

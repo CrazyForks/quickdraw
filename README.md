@@ -1,7 +1,7 @@
 # Quickdraw
 
 [![CI](https://github.com/nmndwivedi/quickdraw/actions/workflows/ci.yml/badge.svg)](https://github.com/nmndwivedi/quickdraw/actions/workflows/ci.yml)
-[![npm](https://img.shields.io/npm/v/@tryquickdraw/core?label=%40tryquickdraw%2Fcore)](https://www.npmjs.com/package/@tryquickdraw/core)
+[![npm](https://img.shields.io/npm/v/@quickdrawjs/core?label=%40tryquickdraw%2Fcore)](https://www.npmjs.com/package/@quickdrawjs/core)
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 **The MIT-licensed infinite-canvas whiteboard SDK.** Drop a complete,
@@ -51,19 +51,19 @@ browser without a build step.
 
 | Package | For | |
 | --- | --- | --- |
-| [`@tryquickdraw/core`](packages/core) | Any web page or framework | framework-free engine + toolbar |
-| [`@tryquickdraw/react`](packages/react) | React apps | `<Quickdraw />` component + hooks |
-| [`@tryquickdraw/react-native`](packages/react-native) | React Native / Expo apps | WebView component + typed bridge |
+| [`@quickdrawjs/core`](packages/core) | Any web page or framework | framework-free engine + toolbar |
+| [`@quickdrawjs/react`](packages/react) | React apps | `<Quickdraw />` component + hooks |
+| [`@quickdrawjs/react-native`](packages/react-native) | React Native / Expo apps | WebView component + typed bridge |
 
 ## Quick start — React
 
 ```bash
-npm install @tryquickdraw/react
+npm install @quickdrawjs/react
 ```
 
 ```jsx
-import { Quickdraw } from '@tryquickdraw/react'
-import '@tryquickdraw/core/quickdraw.css'
+import { Quickdraw } from '@quickdrawjs/react'
+import '@quickdrawjs/core/quickdraw.css'
 
 export default function App() {
   return (
@@ -95,12 +95,12 @@ ref.current.editor.store.undo()
 ## Quick start — plain JS
 
 ```bash
-npm install @tryquickdraw/core
+npm install @quickdrawjs/core
 ```
 
 ```js
-import { createQuickdraw } from '@tryquickdraw/core'
-import '@tryquickdraw/core/quickdraw.css'
+import { createQuickdraw } from '@quickdrawjs/core'
+import '@quickdrawjs/core/quickdraw.css'
 
 const board = createQuickdraw({ container: document.getElementById('board') })
 board.editor.store.listen((diff) => console.log('changed', diff))
@@ -109,11 +109,11 @@ board.editor.store.listen((diff) => console.log('changed', diff))
 ## Quick start — React Native
 
 ```bash
-npm install @tryquickdraw/react-native react-native-webview
+npm install @quickdrawjs/react-native react-native-webview
 ```
 
 ```jsx
-import { Quickdraw } from '@tryquickdraw/react-native'
+import { Quickdraw } from '@quickdrawjs/react-native'
 
 <Quickdraw
   ref={board}
@@ -181,9 +181,9 @@ socket.onmessage = (e) => store.applyDiff(JSON.parse(e.data), 'remote')
 ## Repository
 
 ```
-packages/core          @tryquickdraw/core — the engine (plain ESM, zero deps)
-packages/react         @tryquickdraw/react
-packages/react-native  @tryquickdraw/react-native
+packages/core          @quickdrawjs/core — the engine (plain ESM, zero deps)
+packages/react         @quickdrawjs/react
+packages/react-native  @quickdrawjs/react-native
 examples/vanilla       no-build-step example (open via any static server)
 examples/react-demo    vite playground (npm run dev)
 ```
