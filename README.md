@@ -11,9 +11,13 @@ alternative to tldraw with no license fee.
 
 **[Website](https://tryquickdraw.com)** · **[Try the app](https://app.tryquickdraw.com)** · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
 
-<img src="docs/demo.png" alt="A dark Quickdraw board: hand-drawn shapes with labels, bendable arrows, a sticky note, pressure-sensitive ink that breathes with the stroke, and a highlighter that glows in the dark" width="100%">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/demo-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/demo-light.png">
+  <img src="docs/demo-light.png" alt="A Quickdraw board sketching a search request path: hand-drawn boxes for browser, edge cache, api and postgres, bendable arrows for the cache hit and miss, a dashed write-through arc, a sticky note, a highlighted latency label, and red pen annotations circling the slow node" width="100%">
+</picture>
 
-<sup>Exported straight out of the board with `editor.exportImage()` — the grid travels with the paper.</sup>
+<sup>The hosted app at <a href="https://app.tryquickdraw.com">app.tryquickdraw.com</a> — the same board <code>createQuickdraw()</code> drops into your page.</sup>
 
 Quickdraw exists because embedding a whiteboard shouldn't cost thousands of
 dollars a year. Quickdraw is MIT: no license key, no fees, no strings. A small
