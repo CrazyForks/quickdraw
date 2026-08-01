@@ -11,7 +11,7 @@ alternative to tldraw with no license fee.
 
 **[Website](https://tryquickdraw.com)** · **[Try the app](https://app.tryquickdraw.com)** · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
 
-<img src="docs/demo.png" alt="A Quickdraw board: hand-drawn shapes with labels, bendable arrows, a sticky note, pressure-sensitive ink, and a highlighter" width="100%">
+<img src="docs/demo.png" alt="A dark Quickdraw board: hand-drawn shapes with labels, bendable arrows, a sticky note, pressure-sensitive ink that breathes with the stroke, and a highlighter that glows in the dark" width="100%">
 
 <sup>Exported straight out of the board with `editor.exportImage()` — the grid travels with the paper.</sup>
 
