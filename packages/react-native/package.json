@@ -32,7 +32,10 @@
     "drawing",
     "infinite-canvas",
     "sketch",
-    "tldraw-alternative"
+    "react-native-whiteboard",
+    "expo",
+    "tldraw-alternative",
+    "excalidraw-alternative"
   ],
   "dependencies": {
     "@quickdrawjs/core": "0.1.1"

@@ -25,7 +25,9 @@
     "canvas",
     "drawing",
     "infinite-canvas",
-    "tldraw-alternative"
+    "react-whiteboard",
+    "tldraw-alternative",
+    "excalidraw-alternative"
   ],
   "dependencies": {
     "@quickdrawjs/core": "0.1.1"

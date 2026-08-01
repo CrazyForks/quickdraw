@@ -13,17 +13,20 @@ source our claims and link both competitors throughout.)
 
 ## Licensing — the fork in the road
 
-**tldraw** is source-available, not open source. Production use of the 3.x
-SDK comes with conditions, and removing its built-in attribution requires a
-[paid business license](https://tldraw.dev/community/license); the publicly
-listed startup tier runs thousands of dollars per year. For a funded product
-that's often fine. For a side project or a startup counting dollars, it's a
-real cost.
+**tldraw** is source-available, not open source. Since
+[SDK 4.0](https://tldraw.dev/blog/tldraw-sdk-4-0) (September 2025),
+production use requires a license key: a 100-day free trial, a free
+[hobby license](https://tldraw.dev/community/license) (non-commercial only,
+watermark required), or a commercial license arranged through sales — there
+is no public price list, though users on Hacker News have reported quotes
+around $6k/year for small teams. For a funded product that's often fine. For
+a side project or a startup counting dollars, it's a real cost.
 
 **Excalidraw** is MIT. Free for anything, forever.
 
-**Quickdraw** is MIT too. It shows a small corner mark by default, but
-removal is a free option (`watermark: false`), not a paid tier.
+**Quickdraw** is MIT too. It shows a small "Made with Quickdraw" badge in
+the corner by default, but removal is a free, documented option
+(`watermark: false`) — no license key, no signup, no phone-home.
 
 If your legal or budget situation rules out a paid SDK license, the rest of
 the comparison is between Excalidraw and Quickdraw.

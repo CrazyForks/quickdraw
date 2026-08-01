@@ -7,10 +7,14 @@ date: 2026-08-01
 
 tldraw is probably the best-known infinite-canvas SDK for React, and it's
 good software. It's also not open source in the way many developers assume:
-since the 3.x release, production use comes with
-[license conditions](https://tldraw.dev/community/license), and removing the
-built-in attribution requires a paid business license — the startup tier is
-publicly listed in the thousands of dollars per year.
+the licensing has tightened in steps — v2 (2024) went non-commercial, v2.4–3.x
+allowed free production use with a mandatory watermark, and since
+[SDK 4.0](https://tldraw.dev/blog/tldraw-sdk-4-0) (September 2025) production
+use requires a license key outright: a 100-day trial, a free
+[hobby license](https://tldraw.dev/community/license) (non-commercial,
+watermark required), or a commercial license via sales. There's no public
+price list; users on Hacker News have reported quotes around $6k/year for
+small teams.
 
 That's a legitimate business model. But if you searched for an *alternative*,
 you probably want one of two things: a genuinely free license, or a library
@@ -24,7 +28,8 @@ Three license situations get conflated:
 - **MIT / Apache** — use it commercially, modify it, no fees, irrevocably.
   This is what most people mean by open source.
 - **Source-available with conditions** — you can read and modify the code,
-  but shipping to production carries terms. tldraw 3.x is here.
+  but shipping to production carries terms. tldraw is here (a required
+  watermark in 3.x; a required license key since 4.0).
 - **Copyleft (GPL/AGPL)** — free, but with obligations many commercial teams
   can't accept for an embedded SDK.
 
@@ -57,9 +62,9 @@ packages:
 You get pressure-sensitive ink, shapes with a hand-drawn wobble, arrows,
 sticky notes, images, a laser pointer, per-gesture undo, light and dark
 themes, grids, and PNG export — plus a diff-emitting store designed for
-persistence and real-time sync. A small "Quickdraw" mark sits in the board's
-corner by default; unlike tldraw's attribution, turning it off is a boolean
-(`watermark: false`), not a paid tier.
+persistence and real-time sync. A small "Made with Quickdraw" badge sits in
+the board's corner by default; unlike tldraw's attribution, turning it off is
+a boolean (`watermark: false`) — free, no license key, no phone-home.
 
 Where it fits less well: it's young. Excalidraw and tldraw have years of
 production hardening and much bigger communities. If you need rich text,

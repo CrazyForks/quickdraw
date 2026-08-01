@@ -1,7 +1,7 @@
 # Quickdraw
 
 [![CI](https://github.com/nmndwivedi/quickdraw/actions/workflows/ci.yml/badge.svg)](https://github.com/nmndwivedi/quickdraw/actions/workflows/ci.yml)
-[![npm](https://img.shields.io/npm/v/@quickdrawjs/core?label=%40tryquickdraw%2Fcore)](https://www.npmjs.com/package/@quickdrawjs/core)
+[![npm](https://img.shields.io/npm/v/@quickdrawjs/core?label=%40quickdrawjs%2Fcore)](https://www.npmjs.com/package/@quickdrawjs/core)
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 **The MIT-licensed infinite-canvas whiteboard SDK.** Drop a complete,
@@ -13,8 +13,10 @@ alternative to tldraw with no license fee.
 
 Quickdraw exists because embedding a whiteboard shouldn't cost thousands of
 dollars a year. Quickdraw is MIT: no license key, no fees, no strings. A small
-"Quickdraw" mark sits in the board's corner; keeping it helps people find the
-project, and `watermark: false` turns it off — no purchase required.
+"Made with Quickdraw" badge sits in the board's corner by default; keeping it
+helps people find the project, and turning it off is free, legal, and one line
+— `watermark: false`, no license key, no signup, no phone-home. We just
+appreciate the credit.
 
 ## What you get
 
@@ -68,7 +70,9 @@ import '@quickdrawjs/core/quickdraw.css'
 export default function App() {
   return (
     <div style={{ position: 'fixed', inset: 0 }}>
-      <Quickdraw theme="light" grid="lines" />
+      <Quickdraw theme="light" grid="lines" watermark={false} />
+      {/* the "Made with Quickdraw" badge is on by default;
+          watermark={false} removes it — free, no strings */}
     </div>
   )
 }
@@ -197,6 +201,14 @@ npm run dev       # react demo at localhost:5173
 npm run build     # bundle the RN WebView page
 npm run typecheck # validate the published type declarations
 ```
+
+## Roadmap — and what's honestly missing today
+
+Quickdraw is young. What it doesn't have yet: a first-party multiplayer
+server (the diff-based store is sync-ready — you bring the transport),
+layers, frames, or rich text. The full roadmap lives in
+[issue #1](https://github.com/nmndwivedi/quickdraw/issues/1) — comment there
+if the missing feature that sent you back to a paid SDK is on it (or isn't).
 
 ## Contributing
 
