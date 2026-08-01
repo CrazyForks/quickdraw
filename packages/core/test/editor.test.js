@@ -46,9 +46,9 @@ afterEach(() => {
 })
 
 describe('setup', () => {
-  it('mounts canvases and starts on select', () => {
+  it('mounts canvases and starts on draw', () => {
     expect(container.querySelectorAll('canvas').length).toBe(2)
-    expect(editor.tool).toBe('select')
+    expect(editor.tool).toBe('draw')
     expect(TOOLS).toContain('draw')
   })
 

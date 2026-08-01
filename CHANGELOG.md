@@ -4,6 +4,16 @@ All notable changes to the `@quickdrawjs/*` packages are documented here.
 The project follows [semver](https://semver.org); the three packages are
 versioned in lockstep.
 
+## 0.1.3 — 2026-08-01
+
+- The pen (draw) tool is now selected by default when a board mounts,
+  instead of the select tool — everywhere: core, React, React Native,
+  the hosted app, and the site demos.
+
+## 0.1.2 — 2026-08-01
+
+- npm discovery keywords added to all three packages. No code changes.
+
 ## 0.1.1 — 2026-08-01
 
 - Lines are now bendable: drag the new midpoint anchor to curve a line,

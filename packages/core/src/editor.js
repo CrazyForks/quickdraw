@@ -41,7 +41,7 @@ export class Editor {
     this.camera = camera || { x: 0, y: 0, z: 1 }
     this.styles = { ...DEFAULT_STYLES, ...(styles || {}) }
     this.geoKind = geoKind || 'rectangle'
-    this.tool = 'select'
+    this.tool = 'draw'
     this.selection = new Set()
     this.session = null
     this.editing = null // { id, textarea, field: 'text' | 'label' }
