@@ -9,7 +9,7 @@ Sometimes you just need a surface to think on — a quick diagram in a call, a
 sketch to explain a bug, a plan drawn out loud. What you don't need is a
 sign-up wall, a workspace to name, and an onboarding tour.
 
-[app.tryquickdraw.com](https://tryquickdraw-app.vercel.app) opens straight
+[app.tryquickdraw.com](https://app.tryquickdraw.com) opens straight
 to a canvas. Draw. That's the product.
 
 ## What you get
@@ -68,4 +68,4 @@ The [docs](/docs/) take it from there, and the whole thing is
 | <kbd>⇧1</kbd> | Zoom to fit |
 | <kbd>⌘Z</kbd> / <kbd>⇧⌘Z</kbd> | Undo / redo |
 
-[Open the whiteboard →](https://tryquickdraw-app.vercel.app)
+[Open the whiteboard →](https://app.tryquickdraw.com)
