@@ -9,7 +9,7 @@ polished drawing surface into your React, React Native, or plain-JS app —
 free for any use, including commercial products, forever. An open-source
 alternative to tldraw with no license fee.
 
-**[Website](https://tryquickdraw.com)** · **[Try the app](https://app.tryquickdraw.com)** · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
+**[Website](https://tryquickdraw.com)** · **[Try the app](https://app.tryquickdraw.com)** · **[npm](https://www.npmjs.com/package/@quickdrawjs/core)** · [Docs](https://tryquickdraw.com/docs/) · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/demo-dark.png">
@@ -217,6 +217,23 @@ server (the diff-based store is sync-ready — you bring the transport),
 layers, frames, or rich text. The full roadmap lives in
 [issue #1](https://github.com/nmndwivedi/quickdraw/issues/1) — comment there
 if the missing feature that sent you back to a paid SDK is on it (or isn't).
+
+## Star history
+
+Quickdraw is free forever — no license fees, no upsell. If it saves you one, a
+star is how other developers find it.
+
+<a href="https://github.com/nmndwivedi/quickdraw/stargazers">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/star-history-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="docs/star-history.svg">
+    <img src="docs/star-history.svg" alt="Quickdraw's GitHub star count over time" width="100%">
+  </picture>
+</a>
+
+<sup>Regenerated every night by
+<a href=".github/workflows/star-history.yml">a scheduled workflow</a> —
+same data as the chart on <a href="https://tryquickdraw.com/#support">the website</a>.</sup>
 
 ## Contributing
 
