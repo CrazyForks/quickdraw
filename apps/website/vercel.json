@@ -3,8 +3,12 @@
   "redirects": [{ "source": "/docs", "destination": "/docs/", "permanent": true }],
   "rewrites": [
     {
-      "source": "/docs/:path*",
-      "destination": "https://tryquickdraw-docs.vercel.app/docs/:path*"
+      "source": "/docs/",
+      "destination": "https://tryquickdraw-docs.vercel.app/docs/"
+    },
+    {
+      "source": "/docs/:path(.*)",
+      "destination": "https://tryquickdraw-docs.vercel.app/docs/:path"
     }
   ]
 }
