@@ -41,12 +41,14 @@ jobs:
 
       - name: Commit if the chart moved
         run: |
-          if git diff --quiet -- docs/; then
+          # Stage first: on the very first run these files are untracked, and
+          # `git diff` alone would report no change and skip the seed commit.
+          git add -A docs/
+          if git diff --cached --quiet; then
             echo "No change."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/star-history.json docs/star-history.svg docs/star-history-dark.svg
           git commit -m "chore: update star history [skip ci]"
           git push
