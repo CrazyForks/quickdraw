@@ -1,0 +1,165 @@
+---
+// The sponsor wall — one component, two placements:
+//
+//   <SponsorWall cap={8} />   homepage: top sponsors, the rest behind
+//                             "+N more →" on /sponsors
+//   <SponsorWall />           /sponsors: the full wall
+//
+// Every call to action — the "your logo" slots, the button — goes straight to
+// GitHub Sponsors from wherever it's rendered; the only link to /sponsors is
+// the overflow count, which is the one thing that page uniquely holds.
+//
+// Everything is centered on the card's axis: the empty state fades ghost
+// slots out symmetrically from the live "your logo here" slot in the middle,
+// and the populated row centers too, so a half-full row never reads as
+// left-over space.
+//
+// The wall simply mirrors GitHub Sponsors: active sponsors are on it, lapsed
+// ones roll off at the next daily sync, one-time donations age out when
+// GitHub stops counting them as active. No hand-kept lists, no lifetime
+// placement promises — the copy only claims what the sync actually delivers.
+import { SPONSOR_URL, sponsors } from '../lib/sponsors.js'
+
+const { cap } = Astro.props
+
+const all = sponsors()
+const shown = cap ? all.slice(0, cap) : all
+const overflow = all.length - shown.length
+const empty = all.length === 0
+
+// Ghosts fade away from the live slot in both directions, so the invite sits
+// at the optical center of the row.
+const ghostsLeft = [0.2, 0.45]
+const ghostsRight = [0.45, 0.2]
+---
+{empty ? (
+  <div class="wall empty">
+    <div class="ghost-row">
+      {ghostsLeft.map((o) => <div class="slot ghost" style={`--o: ${o}`} aria-hidden="true"></div>)}
+      <a class="slot your-slot" href={SPONSOR_URL} rel="noopener">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        Your logo here
+      </a>
+      {ghostsRight.map((o) => <div class="slot ghost" style={`--o: ${o}`} aria-hidden="true"></div>)}
+    </div>
+    <div class="pitch">
+      <svg class="heart" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.5-9.2C1 8 3.2 4.6 6.8 4.6c2.2 0 3.9 1.2 5.2 3 1.3-1.8 3-3 5.2-3 3.6 0 5.8 3.4 4.3 7.2C19.5 16.4 12 21 12 21Z"/></svg>
+      <p class="pitch-title">Nobody's here yet.</p>
+      <p class="pitch-copy">
+        Sponsor Quickdraw today and you're on this wall tomorrow — in front of
+        every developer sizing up a whiteboard SDK.
+      </p>
+      <a class="btn" href={SPONSOR_URL} rel="noopener">Claim the first spot</a>
+    </div>
+  </div>
+) : (
+  <div class="wall">
+    <div class="row">
+      {shown.map((s) => (
+        <a class="chip" href={s.url} rel="noopener sponsored" title={s.name}>
+          {s.logo
+            ? <img class="logo" src={s.logo} alt={s.name} loading="lazy" />
+            : <>
+                {/* a dead avatar URL drops out rather than leaving a broken
+                    glyph — the name alone still reads as a finished chip */}
+                {s.avatar && <img class="avatar" src={s.avatar} alt="" loading="lazy" onerror="this.remove()" />}
+                <span class="chip-name">{s.name}</span>
+              </>}
+        </a>
+      ))}
+      <a class="slot your-slot small" href={SPONSOR_URL} rel="noopener">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        Your logo
+      </a>
+    </div>
+    {overflow > 0 && (
+      <p class="more"><a href="/sponsors/">+ {overflow} more sponsor{overflow === 1 ? '' : 's'} →</a></p>
+    )}
+  </div>
+)}
+
+<style>
+  .wall {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 26px 26px 24px;
+    text-align: center;
+  }
+  .wall.empty { border-style: dashed; border-width: 1.5px; padding-bottom: 34px; }
+
+  /* the ghost row runs off both edges rather than wrapping — the fade only
+     reads as a fade while the slots stay on one line. The padding/negative
+     margin pair gives the hover lift and its shadow room to breathe: overflow
+     clips at the padding edge, so the row still hides the ghosts sideways
+     without shaving the top of a lifted slot. */
+  .ghost-row {
+    display: flex; justify-content: center; gap: 12px;
+    overflow: hidden;
+    padding: 10px 0; margin: -10px 0;
+  }
+  .slot {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    flex: 0 0 172px; height: 64px; border-radius: 12px;
+    border: 1.5px dashed var(--line);
+    color: var(--ink-soft); font-weight: 600; font-size: 13.5px;
+  }
+  .slot.ghost { opacity: var(--o, 1); }
+  .your-slot {
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    color: color-mix(in srgb, var(--accent) 75%, var(--ink));
+    background: color-mix(in srgb, var(--accent) 4%, transparent);
+    text-decoration: none;
+    transition: background 140ms ease, border-color 140ms ease, transform 140ms ease;
+  }
+  .your-slot:hover {
+    background: color-mix(in srgb, var(--accent) 9%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 70%, transparent);
+    transform: translateY(-2px); text-decoration: none;
+  }
+
+  .pitch { margin-top: 30px; }
+  .heart { color: color-mix(in srgb, var(--accent) 70%, var(--ink)); margin-bottom: 6px; }
+  .pitch-title { font-weight: 700; font-size: 18px; margin: 0 0 8px; color: var(--ink); }
+  .pitch-copy {
+    color: var(--ink-soft); max-width: 50ch; margin: 0 auto 22px;
+    text-wrap: balance; line-height: 1.6;
+  }
+  .btn {
+    display: inline-block; padding: 11px 22px; border-radius: 999px; font-weight: 600;
+    background: var(--ink); color: var(--paper); font-size: 15.5px;
+  }
+  .btn:hover { text-decoration: none; background: #000; }
+
+  .row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+  .chip {
+    display: flex; align-items: center; justify-content: center; gap: 9px;
+    height: 60px; padding: 0 20px; max-width: 100%;
+    border: 1px solid var(--line); border-radius: 12px; background: #fff;
+    text-decoration: none;
+    transition: border-color 140ms ease, transform 140ms ease, box-shadow 140ms ease;
+  }
+  .chip:hover {
+    transform: translateY(-2px); text-decoration: none;
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
+    box-shadow: 0 12px 26px -18px rgba(28, 27, 24, 0.5);
+  }
+  .chip .logo { max-height: 34px; max-width: 140px; object-fit: contain; display: block; }
+  .chip .avatar { width: 28px; height: 28px; border-radius: 50%; display: block; flex: none; }
+  .chip-name {
+    font-weight: 700; font-size: 14.5px; color: var(--ink); letter-spacing: -0.01em;
+    max-width: 20ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .slot.small { flex: none; height: 60px; padding: 0 18px; }
+
+  .more { margin: 14px 0 0; font-size: 14px; }
+
+  @media (max-width: 640px) {
+    .wall { padding: 18px 16px 18px; }
+    .wall.empty { padding-bottom: 26px; }
+    .slot { flex-basis: 140px; }
+    .pitch { margin-top: 22px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .chip, .your-slot { transition: none; }
+    .chip:hover, .your-slot:hover { transform: none; }
+  }
+</style>
