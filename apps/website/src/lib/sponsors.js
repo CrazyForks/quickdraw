@@ -36,6 +36,8 @@ export function sponsors() {
       url: s.url || `https://github.com/${s.login}`,
       avatar: s.avatar,
       logo: null,
+      // kept so the wall can size each tile against the largest sponsor
+      monthly: s.monthly ?? 0,
       ...OVERRIDES[s.login],
     }))
 }
