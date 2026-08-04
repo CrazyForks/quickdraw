@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="310" viewBox="0 0 800 310" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="Quickdraw star history on GitHub — 23 stars">
-  <!-- generated 2026-08-03T07:48:22.799Z by scripts/star-history.mjs — do not edit by hand -->
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="310" viewBox="0 0 800 310" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="Quickdraw star history on GitHub — 30 stars">
+  <!-- generated 2026-08-04T06:41:58.987Z by scripts/star-history.mjs — do not edit by hand -->
   <defs>
     <linearGradient id="qd-star-fill" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="rgba(224, 161, 6, 0.26)"/>
@@ -8,12 +8,12 @@
   </defs>
   <rect x="0.5" y="0.5" width="799" height="309" rx="14" fill="#faf8f4" stroke="#e3dfd4"/>
   <g transform="translate(24 17) scale(0.75)"><path d="M12 1.6l3.1 6.7 7.3.9-5.4 5 1.4 7.2L12 17.8l-6.4 3.6L7 14.2 1.6 9.2l7.3-.9L12 1.6z" fill="#e0a106"/></g>
-  <text x="47" y="33" fill="#1c1b18" font-size="15" font-weight="700">23 stars</text>
+  <text x="47" y="33" fill="#1c1b18" font-size="15" font-weight="700">30 stars</text>
   <text x="776" y="33" fill="#57544c" font-size="13" text-anchor="end">quickdrawjs/quickdraw</text>
   <line x1="56" x2="776" y1="266" y2="266" stroke="#ded9cc" stroke-width="1" stroke-dasharray="3 6"/><line x1="56" x2="776" y1="165" y2="165" stroke="#ded9cc" stroke-width="1" stroke-dasharray="3 6"/><line x1="56" x2="776" y1="64" y2="64" stroke="#ded9cc" stroke-width="1" stroke-dasharray="3 6"/>
-  <path d="M56 266 L92.7 257.9 L148.9 249.8 L153.3 241.8 L217.6 233.7 L219 225.6 L227 217.5 L280.3 209.4 L295.6 201.4 L317.9 193.3 L333.5 185.2 L378.9 177.1 L382.6 169 L407.6 161 L418.5 152.9 L439.2 144.8 L461.3 136.7 L487.6 128.6 L492.9 120.6 L497.5 112.5 L523.4 104.4 L758.3 96.3 L764.7 88.2 L766.2 80.2 L776 80.2 L776 266 L56 266 Z" fill="url(#qd-star-fill)"/>
-  <path d="M56 266 L92.7 257.9 L148.9 249.8 L153.3 241.8 L217.6 233.7 L219 225.6 L227 217.5 L280.3 209.4 L295.6 201.4 L317.9 193.3 L333.5 185.2 L378.9 177.1 L382.6 169 L407.6 161 L418.5 152.9 L439.2 144.8 L461.3 136.7 L487.6 128.6 L492.9 120.6 L497.5 112.5 L523.4 104.4 L758.3 96.3 L764.7 88.2 L766.2 80.2 L776 80.2" fill="none" stroke="#e0a106" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
-  <circle cx="776" cy="80.2" r="8" fill="#e0a106" opacity="0.22"/>
-  <circle cx="776" cy="80.2" r="4" fill="#e0a106"/>
-  <text x="44" y="271" fill="#57544c" font-size="14" text-anchor="end">0</text><text x="44" y="170" fill="#57544c" font-size="14" text-anchor="end">12.5</text><text x="44" y="69" fill="#57544c" font-size="14" text-anchor="end">25</text><text x="56" y="296" fill="#57544c" font-size="14" text-anchor="start">Jul 31</text><text x="416" y="296" fill="#57544c" font-size="14" text-anchor="middle">Aug 2</text><text x="776" y="296" fill="#57544c" font-size="14" text-anchor="end">Aug 3</text>
+  <path d="M56 266 L82.3 262 L122.4 257.9 L125.5 253.9 L171.6 249.8 L172.5 245.8 L178.3 241.8 L216.4 237.7 L227.3 233.7 L243.3 229.6 L254.4 225.6 L286.9 221.6 L289.5 217.5 L307.4 213.5 L315.2 209.4 L330 205.4 L345.8 201.4 L364.6 197.3 L368.4 193.3 L371.7 189.2 L390.2 185.2 L558.1 181.2 L562.7 177.1 L563.8 173.1 L574.1 169 L574.4 165 L589.8 161 L603 156.9 L618.7 152.9 L626.4 148.8 L703.2 144.8 L776 144.8 L776 266 L56 266 Z" fill="url(#qd-star-fill)"/>
+  <path d="M56 266 L82.3 262 L122.4 257.9 L125.5 253.9 L171.6 249.8 L172.5 245.8 L178.3 241.8 L216.4 237.7 L227.3 233.7 L243.3 229.6 L254.4 225.6 L286.9 221.6 L289.5 217.5 L307.4 213.5 L315.2 209.4 L330 205.4 L345.8 201.4 L364.6 197.3 L368.4 193.3 L371.7 189.2 L390.2 185.2 L558.1 181.2 L562.7 177.1 L563.8 173.1 L574.1 169 L574.4 165 L589.8 161 L603 156.9 L618.7 152.9 L626.4 148.8 L703.2 144.8 L776 144.8" fill="none" stroke="#e0a106" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="776" cy="144.8" r="8" fill="#e0a106" opacity="0.22"/>
+  <circle cx="776" cy="144.8" r="4" fill="#e0a106"/>
+  <text x="44" y="271" fill="#57544c" font-size="14" text-anchor="end">0</text><text x="44" y="170" fill="#57544c" font-size="14" text-anchor="end">25</text><text x="44" y="69" fill="#57544c" font-size="14" text-anchor="end">50</text><text x="56" y="296" fill="#57544c" font-size="14" text-anchor="start">Jul 31</text><text x="416" y="296" fill="#57544c" font-size="14" text-anchor="middle">Aug 2</text><text x="776" y="296" fill="#57544c" font-size="14" text-anchor="end">Aug 4</text>
 </svg>
