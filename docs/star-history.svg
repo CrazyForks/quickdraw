@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="310" viewBox="0 0 800 310" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="Quickdraw star history on GitHub — 31 stars">
-  <!-- generated 2026-08-05T06:43:05.431Z by scripts/star-history.mjs — do not edit by hand -->
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="310" viewBox="0 0 800 310" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="Quickdraw star history on GitHub — 34 stars">
+  <!-- generated 2026-08-06T06:47:08.352Z by scripts/star-history.mjs — do not edit by hand -->
   <defs>
     <linearGradient id="qd-star-fill" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="rgba(224, 161, 6, 0.26)"/>
@@ -8,12 +8,12 @@
   </defs>
   <rect x="0.5" y="0.5" width="799" height="309" rx="14" fill="#faf8f4" stroke="#e3dfd4"/>
   <g transform="translate(24 17) scale(0.75)"><path d="M12 1.6l3.1 6.7 7.3.9-5.4 5 1.4 7.2L12 17.8l-6.4 3.6L7 14.2 1.6 9.2l7.3-.9L12 1.6z" fill="#e0a106"/></g>
-  <text x="47" y="33" fill="#1c1b18" font-size="15" font-weight="700">31 stars</text>
+  <text x="47" y="33" fill="#1c1b18" font-size="15" font-weight="700">34 stars</text>
   <text x="776" y="33" fill="#57544c" font-size="13" text-anchor="end">quickdrawjs/quickdraw</text>
   <line x1="56" x2="776" y1="266" y2="266" stroke="#ded9cc" stroke-width="1" stroke-dasharray="3 6"/><line x1="56" x2="776" y1="165" y2="165" stroke="#ded9cc" stroke-width="1" stroke-dasharray="3 6"/><line x1="56" x2="776" y1="64" y2="64" stroke="#ded9cc" stroke-width="1" stroke-dasharray="3 6"/>
-  <path d="M56 266 L76.2 262 L107.1 257.9 L109.5 253.9 L145 249.8 L145.7 245.8 L150.1 241.8 L179.5 237.7 L187.9 233.7 L200.2 229.6 L208.7 225.6 L233.7 221.6 L235.8 217.5 L249.6 213.5 L255.5 209.4 L266.9 205.4 L279.1 201.4 L293.6 197.3 L296.5 193.3 L299 189.2 L313.3 185.2 L442.6 181.2 L446.1 177.1 L446.9 173.1 L454.8 169 L466.9 165 L477.1 161 L489.2 156.9 L495.1 152.9 L554.2 148.8 L658.1 144.8 L676.8 140.8 L776 140.8 L776 266 L56 266 Z" fill="url(#qd-star-fill)"/>
-  <path d="M56 266 L76.2 262 L107.1 257.9 L109.5 253.9 L145 249.8 L145.7 245.8 L150.1 241.8 L179.5 237.7 L187.9 233.7 L200.2 229.6 L208.7 225.6 L233.7 221.6 L235.8 217.5 L249.6 213.5 L255.5 209.4 L266.9 205.4 L279.1 201.4 L293.6 197.3 L296.5 193.3 L299 189.2 L313.3 185.2 L442.6 181.2 L446.1 177.1 L446.9 173.1 L454.8 169 L466.9 165 L477.1 161 L489.2 156.9 L495.1 152.9 L554.2 148.8 L658.1 144.8 L676.8 140.8 L776 140.8" fill="none" stroke="#e0a106" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
-  <circle cx="776" cy="140.8" r="8" fill="#e0a106" opacity="0.22"/>
-  <circle cx="776" cy="140.8" r="4" fill="#e0a106"/>
-  <text x="44" y="271" fill="#57544c" font-size="14" text-anchor="end">0</text><text x="44" y="170" fill="#57544c" font-size="14" text-anchor="end">25</text><text x="44" y="69" fill="#57544c" font-size="14" text-anchor="end">50</text><text x="56" y="296" fill="#57544c" font-size="14" text-anchor="start">Jul 31</text><text x="416" y="296" fill="#57544c" font-size="14" text-anchor="middle">Aug 3</text><text x="776" y="296" fill="#57544c" font-size="14" text-anchor="end">Aug 5</text>
+  <path d="M56 266 L72.4 262 L97.5 257.9 L99.5 253.9 L128.3 249.8 L128.9 245.8 L132.5 241.8 L156.3 237.7 L163.2 233.7 L173.2 229.6 L180.1 225.6 L200.4 221.6 L202.1 217.5 L213.3 213.5 L218.1 209.4 L227.4 205.4 L237.3 201.4 L249.1 197.3 L251.4 193.3 L253.5 189.2 L265 185.2 L370.1 181.2 L373 177.1 L373.7 173.1 L380.1 169 L389.9 165 L398.2 161 L408 156.9 L412.8 152.9 L460.8 148.8 L545.3 144.8 L560.5 140.8 L685.9 136.7 L722.5 132.7 L757.9 128.6 L776 128.6 L776 266 L56 266 Z" fill="url(#qd-star-fill)"/>
+  <path d="M56 266 L72.4 262 L97.5 257.9 L99.5 253.9 L128.3 249.8 L128.9 245.8 L132.5 241.8 L156.3 237.7 L163.2 233.7 L173.2 229.6 L180.1 225.6 L200.4 221.6 L202.1 217.5 L213.3 213.5 L218.1 209.4 L227.4 205.4 L237.3 201.4 L249.1 197.3 L251.4 193.3 L253.5 189.2 L265 185.2 L370.1 181.2 L373 177.1 L373.7 173.1 L380.1 169 L389.9 165 L398.2 161 L408 156.9 L412.8 152.9 L460.8 148.8 L545.3 144.8 L560.5 140.8 L685.9 136.7 L722.5 132.7 L757.9 128.6 L776 128.6" fill="none" stroke="#e0a106" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="776" cy="128.6" r="8" fill="#e0a106" opacity="0.22"/>
+  <circle cx="776" cy="128.6" r="4" fill="#e0a106"/>
+  <text x="44" y="271" fill="#57544c" font-size="14" text-anchor="end">0</text><text x="44" y="170" fill="#57544c" font-size="14" text-anchor="end">25</text><text x="44" y="69" fill="#57544c" font-size="14" text-anchor="end">50</text><text x="56" y="296" fill="#57544c" font-size="14" text-anchor="start">Jul 31</text><text x="416" y="296" fill="#57544c" font-size="14" text-anchor="middle">Aug 3</text><text x="776" y="296" fill="#57544c" font-size="14" text-anchor="end">Aug 6</text>
 </svg>
